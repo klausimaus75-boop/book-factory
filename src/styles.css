@@ -338,6 +338,10 @@ textarea {
   outline: none;
 }
 
+.custom-select-input {
+  margin-top: 8px;
+}
+
 .field textarea {
   resize: vertical;
 }

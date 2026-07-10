@@ -1,4 +1,4 @@
-import type { FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { projectSelectOptions } from "./projectOptions";
 import type { ProjectFormValues, ProjectValidationErrors } from "./types";
 
@@ -88,17 +88,44 @@ function SelectField({
   options: string[];
   onChange: (value: string) => void;
 }) {
+  const customOptionValue = "__custom__";
   const normalizedOptions = options.includes(value) || value.trim() === "" ? options : [value, ...options];
+  const [isCustomMode, setIsCustomMode] = useState(Boolean(value.trim()) && !options.includes(value));
+
+  function handleSelectChange(nextValue: string) {
+    if (nextValue === customOptionValue) {
+      setIsCustomMode(true);
+      onChange("");
+      return;
+    }
+
+    setIsCustomMode(false);
+    onChange(nextValue);
+  }
 
   return (
-    <select value={value} onChange={(event) => onChange(event.target.value)}>
-      <option value="">Bitte auswählen</option>
-      {normalizedOptions.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+    <>
+      <select
+        value={isCustomMode ? customOptionValue : value}
+        onChange={(event) => handleSelectChange(event.target.value)}
+      >
+        <option value="">Bitte auswählen</option>
+        {normalizedOptions.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+        <option value={customOptionValue}>Eigene Angabe</option>
+      </select>
+      {isCustomMode ? (
+        <input
+          className="custom-select-input"
+          value={value}
+          placeholder="Eigene Angabe eintragen"
+          onChange={(event) => onChange(event.target.value)}
+        />
+      ) : null}
+    </>
   );
 }
 
