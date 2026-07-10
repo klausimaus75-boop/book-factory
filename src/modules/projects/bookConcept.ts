@@ -1,4 +1,5 @@
 import type { BookConceptWork, Project, StepResultVersion, WorkflowStatus } from "./types";
+import { getConceptGptRecommendation } from "../settings/conceptGptAdvisor";
 import { deriveProjectStatus } from "./workflow";
 
 export const bookConceptStepId = "book-concept";
@@ -74,6 +75,7 @@ export function getMissingBookConceptFields(project: Project): string[] {
 }
 
 export function generateBookConceptPrompt(project: Project, thoughts = ""): string {
+  const recommendation = getConceptGptRecommendation(project);
   const trimmedThoughts = thoughts.trim();
   const thoughtsSection = trimmedThoughts
     ? `
@@ -83,7 +85,10 @@ ${trimmedThoughts}
 
 Arbeite diese Gedanken sinnvoll in das Konzept ein. Wenn einzelne Gedanken den Projektdaten widersprechen, weise kurz darauf hin und orientiere dich an den verbindlichen Projektdaten.`
     : "";
-  return `Du bist ein spezialisierter GPT für die Entwicklung professioneller Buchkonzepte.
+  return `Du bist der ${recommendation.name}.
+
+Aufgabenfokus:
+${recommendation.focus}
 
 Erstelle aus den folgenden Projektdaten ein vollständiges, logisches und zielgruppengerechtes Buchkonzept.
 

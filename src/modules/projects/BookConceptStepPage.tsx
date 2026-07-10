@@ -19,6 +19,7 @@ import {
 } from "./bookConcept";
 import { copyTextToClipboard } from "./clipboard";
 import { canOpenGptProfile, getActiveConceptGptProfile } from "../settings/gptProfiles";
+import { getConceptGptRecommendation } from "../settings/conceptGptAdvisor";
 
 export function BookConceptStepPage() {
   const { projectId } = useParams();
@@ -40,6 +41,7 @@ export function BookConceptStepPage() {
   const work = getBookConceptWork(currentProject);
   const missingFields = getMissingBookConceptFields(currentProject);
   const conceptProfile = getActiveConceptGptProfile(settings.gptProfiles);
+  const conceptRecommendation = getConceptGptRecommendation(currentProject);
   const promptDraft = useMemo(
     () => generateBookConceptPrompt(currentProject, work.thoughts ?? ""),
     [currentProject, work.thoughts]
@@ -184,8 +186,24 @@ export function BookConceptStepPage() {
         </article>
         <article className="detail-panel">
           <h2>GPT-Auswahl</h2>
-          <p>{conceptProfile?.name ?? "Kein aktiver GPT für Buchkonzept gefunden."}</p>
-          <p>{conceptProfile?.description ?? "Bitte prüfe die Einstellungen."}</p>
+          <dl className="compact-data-list">
+            <div>
+              <dt>Dynamische Auswahl</dt>
+              <dd>{conceptRecommendation.name}</dd>
+            </div>
+            <div>
+              <dt>Buchauswahl</dt>
+              <dd>{currentProject.bookType}</dd>
+            </div>
+            <div>
+              <dt>Genre/Thema</dt>
+              <dd>{currentProject.topic}</dd>
+            </div>
+            <div>
+              <dt>Fokus</dt>
+              <dd>{conceptRecommendation.focus}</dd>
+            </div>
+          </dl>
         </article>
       </section>
 

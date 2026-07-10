@@ -30,7 +30,8 @@ describe("book concept workflow", () => {
   it("generates a complete handover prompt from project data", () => {
     const prompt = generateBookConceptPrompt(makeProject());
 
-    expect(prompt).toContain("Du bist ein spezialisierter GPT");
+    expect(prompt).toContain("Du bist der Kinderbuch-Konzept-GPT");
+    expect(prompt).toContain("Aufgabenfokus");
     expect(prompt).toContain("Der mutige Mond");
     expect(prompt).toContain("Freundschaft im Zauberwald");
     expect(prompt).toContain("1. Arbeitstitel");
