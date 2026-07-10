@@ -39,6 +39,12 @@ export function AuthGate({ children }: PropsWithChildren) {
   const [message, setMessage] = useState("");
   const googleClientId = getGoogleClientId();
 
+  function explainMissingGoogleSetup() {
+    setMessage(
+      "Damit der Google-Button echt funktioniert, brauche ich einmalig die Google OAuth Client-ID fuer diese Webseite. Sobald sie in GitHub hinterlegt ist, erscheint hier automatisch der echte Google-Login."
+    );
+  }
+
   useEffect(() => {
     if (isAuthenticated || !googleClientId || !buttonRef.current) {
       return;
@@ -112,12 +118,10 @@ export function AuthGate({ children }: PropsWithChildren) {
         {googleClientId ? (
           <div className="google-login-slot" ref={buttonRef} />
         ) : (
-          <div className="warning-box">
-            <p>
-              Google Login ist technisch vorbereitet, aber noch nicht konfiguriert. Es fehlt
-              <strong> VITE_GOOGLE_CLIENT_ID</strong>.
-            </p>
-          </div>
+          <button className="google-login-button" type="button" onClick={explainMissingGoogleSetup}>
+            <span className="google-mark">G</span>
+            <span>Mit Google anmelden</span>
+          </button>
         )}
         {message ? <p className="warning-message">{message}</p> : null}
         <p className="auth-note">

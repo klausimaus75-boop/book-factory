@@ -69,6 +69,38 @@ textarea {
   min-height: 44px;
 }
 
+.google-login-button {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid #cfd6df;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #263244;
+  cursor: pointer;
+  padding: 10px 18px;
+  font-weight: 720;
+}
+
+.google-login-button:hover {
+  border-color: #aeb8c5;
+  background: #f9fafb;
+}
+
+.google-mark {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1a73e8;
+  font-weight: 900;
+}
+
 .auth-note {
   border-top: 1px solid #e8ecf1;
   padding-top: 14px;
