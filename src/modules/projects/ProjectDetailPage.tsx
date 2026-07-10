@@ -116,6 +116,11 @@ export function ProjectDetailPage() {
                   )}
                 </h3>
                 <p>{step.description}</p>
+                {step.id === "book-concept" ? (
+                  <Link className="inline-step-link" to={`/projects/${currentProject.id}/steps/book-concept`}>
+                    Arbeitsansicht öffnen
+                  </Link>
+                ) : null}
               </div>
               <label className="status-select">
                 <span>Status</span>

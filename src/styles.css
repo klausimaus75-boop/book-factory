@@ -466,6 +466,24 @@ nav {
   text-underline-offset: 3px;
 }
 
+.inline-step-link {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 10px;
+  border: 1px solid #cfd6df;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 8px 11px;
+  color: #1f5f52;
+  font-size: 13px;
+  font-weight: 740;
+}
+
+.inline-step-link:hover {
+  border-color: #1f5f52;
+  background: #edf7f4;
+}
+
 .settings-list {
   display: grid;
   gap: 18px;
