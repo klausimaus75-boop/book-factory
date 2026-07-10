@@ -16,8 +16,14 @@ export const emptyProjectFormValues: ProjectFormValues = {
   styleAndTone: "Professionell und sachlich"
 };
 
+function markBasicDataInProgress(workflowSteps: ReturnType<typeof createDefaultWorkflowSteps>) {
+  return workflowSteps.map((step) =>
+    step.id === "basic-data" && step.status === "not-started" ? { ...step, status: "in-progress" as const } : step
+  );
+}
+
 export function createProject(values: ProjectFormValues, now = new Date()): Project {
-  const workflowSteps = createDefaultWorkflowSteps();
+  const workflowSteps = markBasicDataInProgress(createDefaultWorkflowSteps());
   const timestamp = now.toISOString();
 
   return {
@@ -57,6 +63,8 @@ export function projectToFormValues(project: Project): ProjectFormValues {
 }
 
 export function updateProjectFromForm(project: Project, values: ProjectFormValues, now = new Date()): Project {
+  const workflowSteps = markBasicDataInProgress(project.workflowSteps);
+
   return {
     ...project,
     title: values.title.trim(),
@@ -70,6 +78,8 @@ export function updateProjectFromForm(project: Project, values: ProjectFormValue
     pageCount: Number(values.pageCount),
     narrativePerspective: values.narrativePerspective.trim(),
     styleAndTone: values.styleAndTone.trim(),
+    workflowSteps,
+    status: deriveProjectStatus(workflowSteps),
     updatedAt: now.toISOString()
   };
 }

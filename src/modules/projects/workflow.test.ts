@@ -20,6 +20,13 @@ describe("workflow progress", () => {
     expect(calculateProgress(steps)).toBe(5);
   });
 
+  it("derives in-progress project status from active workflow steps", () => {
+    const steps = createDefaultWorkflowSteps();
+    steps[0].status = "in-progress";
+
+    expect(deriveProjectStatus(steps)).toBe("In Bearbeitung");
+  });
+
   it("returns 100 percent when all steps are complete", () => {
     const steps = createDefaultWorkflowSteps().map((step) => ({ ...step, status: "completed" as const }));
 

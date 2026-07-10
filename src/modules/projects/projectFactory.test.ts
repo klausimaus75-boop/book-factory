@@ -17,7 +17,8 @@ describe("createProject", () => {
     expect(project.title).toBe("Der mutige Mond");
     expect(project.bookType).toBe("Kinderbuch");
     expect(project.workflowSteps).toHaveLength(11);
-    expect(project.status).toBe("Entwurf");
+    expect(project.status).toBe("In Bearbeitung");
+    expect(project.workflowSteps[0].status).toBe("in-progress");
     expect(project.createdAt).toBe("2026-07-10T10:00:00.000Z");
   });
 });

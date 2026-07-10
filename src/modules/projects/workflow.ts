@@ -104,8 +104,9 @@ export function calculateProgress(steps: WorkflowStep[]): number {
 
 export function deriveProjectStatus(steps: WorkflowStep[]) {
   const completedSteps = steps.filter((step) => step.status === "completed").length;
+  const activeSteps = steps.filter((step) => step.status === "in-progress" || step.status === "review").length;
 
-  if (completedSteps === 0) {
+  if (completedSteps === 0 && activeSteps === 0) {
     return "Entwurf" as const;
   }
 
