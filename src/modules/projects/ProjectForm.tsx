@@ -1,5 +1,10 @@
 import { useState, type FormEvent } from "react";
 import { projectSelectOptions } from "./projectOptions";
+import {
+  applyAgeRangeRecommendations,
+  applyBookTypeRecommendations,
+  getRecommendedProjectOptions
+} from "./projectRecommendations";
 import type { ProjectFormValues, ProjectValidationErrors } from "./types";
 
 interface ProjectFormProps {
@@ -11,7 +16,19 @@ interface ProjectFormProps {
 }
 
 export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }: ProjectFormProps) {
+  const recommendedOptions = getRecommendedProjectOptions(values);
+
   function updateField(field: keyof ProjectFormValues, value: string) {
+    if (field === "bookType") {
+      onChange(applyBookTypeRecommendations(values, value));
+      return;
+    }
+
+    if (field === "ageRange") {
+      onChange(applyAgeRangeRecommendations(values, value));
+      return;
+    }
+
     onChange({ ...values, [field]: value });
   }
 
@@ -31,11 +48,11 @@ export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }:
       </Field>
 
       <Field label="Thema" error={errors.topic}>
-        <SelectField value={values.topic} options={projectSelectOptions.topic} onChange={(value) => updateField("topic", value)} />
+        <SelectField value={values.topic} options={recommendedOptions.topic} onChange={(value) => updateField("topic", value)} />
       </Field>
 
       <Field label="Zielgruppe" error={errors.targetAudience}>
-        <SelectField value={values.targetAudience} options={projectSelectOptions.targetAudience} onChange={(value) => updateField("targetAudience", value)} />
+        <SelectField value={values.targetAudience} options={recommendedOptions.targetAudience} onChange={(value) => updateField("targetAudience", value)} />
       </Field>
 
       <Field label="Altersspanne" error={errors.ageRange}>
@@ -47,7 +64,7 @@ export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }:
       </Field>
 
       <Field label="Buchformat" error={errors.bookFormat}>
-        <SelectField value={values.bookFormat} options={projectSelectOptions.bookFormat} onChange={(value) => updateField("bookFormat", value)} />
+        <SelectField value={values.bookFormat} options={recommendedOptions.bookFormat} onChange={(value) => updateField("bookFormat", value)} />
       </Field>
 
       <Field label="Beschnittzugabe Innenblock" error={errors.interiorBleed}>
@@ -55,13 +72,13 @@ export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }:
       </Field>
 
       <Field label="Seitenzahl" error={errors.pageCount}>
-        <SelectField value={values.pageCount} options={projectSelectOptions.pageCount} onChange={(value) => updateField("pageCount", value)} />
+        <SelectField value={values.pageCount} options={recommendedOptions.pageCount} onChange={(value) => updateField("pageCount", value)} />
       </Field>
 
       <Field label="Erzählperspektive" error={errors.narrativePerspective}>
         <SelectField
           value={values.narrativePerspective}
-          options={projectSelectOptions.narrativePerspective}
+          options={recommendedOptions.narrativePerspective}
           onChange={(value) => updateField("narrativePerspective", value)}
         />
       </Field>
@@ -69,7 +86,7 @@ export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }:
       <Field label="Stil und Ton" error={errors.styleAndTone} wide>
         <SelectField
           value={values.styleAndTone}
-          options={projectSelectOptions.styleAndTone}
+          options={recommendedOptions.styleAndTone}
           allowCustom
           onChange={(value) => updateField("styleAndTone", value)}
         />
