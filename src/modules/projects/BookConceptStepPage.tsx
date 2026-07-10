@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { formatDateTime } from "./formatters";
 import { useProjects } from "./useProjects";
@@ -40,6 +40,12 @@ export function BookConceptStepPage() {
   const [promptText, setPromptText] = useState(work.prompt || promptDraft);
   const [resultText, setResultText] = useState(work.result ?? "");
   const canComplete = canCompleteBookConcept(work);
+
+  useEffect(() => {
+    if (step?.status === "not-started") {
+      saveProject(updateBookConceptStatus(currentProject, "in-progress"));
+    }
+  }, [currentProject, saveProject, step?.status]);
 
   function generatePrompt() {
     const prompt = generateBookConceptPrompt(currentProject);

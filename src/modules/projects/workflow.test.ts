@@ -13,6 +13,13 @@ describe("workflow progress", () => {
     expect(calculateProgress(steps)).toBe(45);
   });
 
+  it("counts active workflow steps as partial progress", () => {
+    const steps = createDefaultWorkflowSteps();
+    steps[1].status = "in-progress";
+
+    expect(calculateProgress(steps)).toBe(5);
+  });
+
   it("returns 100 percent when all steps are complete", () => {
     const steps = createDefaultWorkflowSteps().map((step) => ({ ...step, status: "completed" as const }));
 

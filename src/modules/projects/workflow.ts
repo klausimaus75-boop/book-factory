@@ -87,8 +87,19 @@ export function calculateProgress(steps: WorkflowStep[]): number {
     return 0;
   }
 
-  const completedSteps = steps.filter((step) => step.status === "completed").length;
-  return Math.round((completedSteps / steps.length) * 100);
+  const completedStepWeight = steps.reduce((total, step) => {
+    if (step.status === "completed") {
+      return total + 1;
+    }
+
+    if (step.status === "in-progress" || step.status === "review") {
+      return total + 0.5;
+    }
+
+    return total;
+  }, 0);
+
+  return Math.round((completedStepWeight / steps.length) * 100);
 }
 
 export function deriveProjectStatus(steps: WorkflowStep[]) {

@@ -94,4 +94,11 @@ describe("book concept workflow", () => {
 
     expect(calculateProgress(project.workflowSteps)).toBe(9);
   });
+
+  it("shows partial progress when the book concept step is in progress", () => {
+    const project = saveBookConceptPrompt(makeProject(), "Prompt");
+
+    expect(project.workflowSteps.find((step) => step.id === "book-concept")?.status).toBe("in-progress");
+    expect(calculateProgress(project.workflowSteps)).toBe(5);
+  });
 });
