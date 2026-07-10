@@ -35,6 +35,46 @@ textarea {
   min-height: 100vh;
 }
 
+.auth-page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+}
+
+.auth-panel {
+  display: grid;
+  width: min(560px, 100%);
+  gap: 16px;
+  border: 1px solid #dce1e8;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 14px 40px rgba(23, 32, 51, 0.08);
+  padding: 28px;
+}
+
+.auth-panel h1 {
+  margin: 0;
+  font-size: clamp(32px, 5vw, 46px);
+  line-height: 1.05;
+}
+
+.auth-panel p {
+  margin: 0;
+  color: #5b6676;
+  line-height: 1.6;
+}
+
+.google-login-slot {
+  min-height: 44px;
+}
+
+.auth-note {
+  border-top: 1px solid #e8ecf1;
+  padding-top: 14px;
+  font-size: 14px;
+}
+
 .topbar {
   position: sticky;
   top: 0;
@@ -470,6 +510,38 @@ nav {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.account-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #344054;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.account-menu img,
+.account-initial {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+}
+
+.account-initial {
+  display: grid;
+  place-items: center;
+  background: #e8f1ef;
+  color: #1f5f52;
+  font-weight: 800;
+}
+
+.text-button {
+  border: 0;
+  background: transparent;
+  color: #1f5f52;
+  cursor: pointer;
+  font-weight: 760;
 }
 
 .workflow-step h3 a {
