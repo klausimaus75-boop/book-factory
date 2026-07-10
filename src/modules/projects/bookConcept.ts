@@ -45,6 +45,7 @@ export const bookConceptQualityItems = [
 
 export function createEmptyBookConceptWork(): BookConceptWork {
   return {
+    thoughts: "",
     prompt: "",
     previousVersions: [],
     qualityChecks: Object.fromEntries(bookConceptQualityItems.map((item) => [item.id, false]))
@@ -72,7 +73,16 @@ export function getMissingBookConceptFields(project: Project): string[] {
     .map((field) => field.label);
 }
 
-export function generateBookConceptPrompt(project: Project): string {
+export function generateBookConceptPrompt(project: Project, thoughts = ""): string {
+  const trimmedThoughts = thoughts.trim();
+  const thoughtsSection = trimmedThoughts
+    ? `
+
+Zusaetzliche Gedanken des Nutzers:
+${trimmedThoughts}
+
+Arbeite diese Gedanken sinnvoll in das Konzept ein. Wenn einzelne Gedanken den Projektdaten widersprechen, weise kurz darauf hin und orientiere dich an den verbindlichen Projektdaten.`
+    : "";
   return `Du bist ein spezialisierter GPT für die Entwicklung professioneller Buchkonzepte.
 
 Erstelle aus den folgenden Projektdaten ein vollständiges, logisches und zielgruppengerechtes Buchkonzept.
@@ -88,7 +98,7 @@ Projektinformationen:
 - Beschnittzugabe Innenblock: ${project.interiorBleed ?? "Nein - ohne Beschnitt"}
 - Seitenzahl: ${project.pageCount}
 - Erzählperspektive: ${project.narrativePerspective}
-- Stil und Ton: ${project.styleAndTone}
+- Stil und Ton: ${project.styleAndTone}${thoughtsSection}
 
 Anforderungen:
 - Sprache, Struktur und Idee müssen zur Zielgruppe, Buchart und Altersspanne passen.
@@ -146,6 +156,21 @@ export function saveBookConceptPrompt(project: Project, prompt: string, now = ne
   };
 
   return updateBookConceptStatus(withPrompt, "in-progress");
+}
+
+export function saveBookConceptThoughts(project: Project, thoughts: string, now = new Date()): Project {
+  const work = getBookConceptWork(project);
+  const withThoughts: Project = {
+    ...project,
+    bookConcept: {
+      ...work,
+      thoughts,
+      thoughtsUpdatedAt: now.toISOString()
+    },
+    updatedAt: now.toISOString()
+  };
+
+  return updateBookConceptStatus(withThoughts, "in-progress");
 }
 
 export function saveBookConceptResult(project: Project, result: string, now = new Date()): Project {

@@ -16,6 +16,8 @@ export interface StepResultVersion {
 }
 
 export interface BookConceptWork {
+  thoughts?: string;
+  thoughtsUpdatedAt?: string;
   prompt: string;
   promptUpdatedAt?: string;
   result?: string;

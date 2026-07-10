@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { formatDateTime } from "./formatters";
 import { useProjects } from "./useProjects";
@@ -13,6 +13,7 @@ import {
   getMissingBookConceptFields,
   saveBookConceptPrompt,
   saveBookConceptResult,
+  saveBookConceptThoughts,
   updateBookConceptQuality,
   updateBookConceptStatus
 } from "./bookConcept";
@@ -26,6 +27,9 @@ export function BookConceptStepPage() {
   const project = projectId ? getProject(projectId) : undefined;
   const [copyMessage, setCopyMessage] = useState("");
   const [linkMessage, setLinkMessage] = useState("");
+  const [dictationMessage, setDictationMessage] = useState("");
+  const [isDictating, setIsDictating] = useState(false);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   if (!project) {
     return <Navigate to="/" replace />;
@@ -36,7 +40,11 @@ export function BookConceptStepPage() {
   const work = getBookConceptWork(currentProject);
   const missingFields = getMissingBookConceptFields(currentProject);
   const conceptProfile = getActiveConceptGptProfile(settings.gptProfiles);
-  const promptDraft = useMemo(() => generateBookConceptPrompt(currentProject), [currentProject]);
+  const promptDraft = useMemo(
+    () => generateBookConceptPrompt(currentProject, work.thoughts ?? ""),
+    [currentProject, work.thoughts]
+  );
+  const [thoughtText, setThoughtText] = useState(work.thoughts ?? "");
   const [promptText, setPromptText] = useState(work.prompt || promptDraft);
   const [resultText, setResultText] = useState(work.result ?? "");
   const canComplete = canCompleteBookConcept(work);
@@ -48,10 +56,71 @@ export function BookConceptStepPage() {
   }, [currentProject, saveProject, step?.status]);
 
   function generatePrompt() {
-    const prompt = generateBookConceptPrompt(currentProject);
+    const prompt = generateBookConceptPrompt(currentProject, thoughtText);
     setPromptText(prompt);
     saveProject(saveBookConceptPrompt(currentProject, prompt));
     setCopyMessage("Prompt wurde erzeugt und gespeichert.");
+  }
+
+  function saveThoughts() {
+    saveProject(saveBookConceptThoughts(currentProject, thoughtText));
+    setDictationMessage("Gedanken wurden gespeichert.");
+  }
+
+  async function sendThoughtsToGpt() {
+    const prompt = generateBookConceptPrompt(currentProject, thoughtText);
+    const projectWithThoughts = saveBookConceptThoughts(currentProject, thoughtText);
+    saveProject(saveBookConceptPrompt(projectWithThoughts, prompt));
+    setPromptText(prompt);
+    await copyTextToClipboard(prompt);
+    setCopyMessage("Prompt aus deinen Gedanken wurde kopiert. Du kannst ihn jetzt in deinen GPT einfuegen.");
+
+    if (canOpenGptProfile(conceptProfile)) {
+      window.open(conceptProfile.gptLink, "_blank", "noopener,noreferrer");
+    } else {
+      setLinkMessage("Fuer den Buchkonzept-GPT ist noch kein Link hinterlegt.");
+    }
+  }
+
+  function toggleDictation() {
+    setDictationMessage("");
+
+    if (isDictating) {
+      recognitionRef.current?.stop();
+      setIsDictating(false);
+      return;
+    }
+
+    const SpeechRecognition = getSpeechRecognitionConstructor();
+    if (!SpeechRecognition) {
+      setDictationMessage("Diktieren wird von diesem Browser nicht unterstuetzt. Du kannst deine Gedanken manuell eingeben.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "de-DE";
+    recognition.continuous = true;
+    recognition.interimResults = false;
+    recognition.onresult = (event) => {
+      const spokenText = Array.from(event.results)
+        .slice(event.resultIndex)
+        .map((result) => result[0]?.transcript ?? "")
+        .join(" ")
+        .trim();
+
+      if (spokenText) {
+        setThoughtText((current) => [current.trim(), spokenText].filter(Boolean).join(" "));
+      }
+    };
+    recognition.onerror = () => {
+      setDictationMessage("Das Diktat wurde unterbrochen. Bitte pruefe die Mikrofonfreigabe oder tippe weiter.");
+      setIsDictating(false);
+    };
+    recognition.onend = () => setIsDictating(false);
+    recognitionRef.current = recognition;
+    recognition.start();
+    setIsDictating(true);
+    setDictationMessage("Diktat laeuft. Sprich deine Gedanken ein und stoppe danach die Aufnahme.");
   }
 
   async function copyPrompt() {
@@ -118,6 +187,44 @@ export function BookConceptStepPage() {
           <p>{conceptProfile?.name ?? "Kein aktiver GPT für Buchkonzept gefunden."}</p>
           <p>{conceptProfile?.description ?? "Bitte prüfe die Einstellungen."}</p>
         </article>
+      </section>
+
+      <section className="detail-panel thought-panel">
+        <div className="section-heading-row">
+          <div>
+            <h2>Gedankenfenster</h2>
+            <p>
+              Sammle hier deine Idee frei als Text oder per Diktat. Daraus entsteht der Arbeitsauftrag fuer deinen
+              Buchkonzept-GPT.
+            </p>
+          </div>
+          <div className="actions">
+            <button className="button secondary" type="button" onClick={toggleDictation}>
+              {isDictating ? "Diktat stoppen" : "Diktat starten"}
+            </button>
+            <button className="button secondary" type="button" onClick={saveThoughts}>
+              Gedanken speichern
+            </button>
+          </div>
+        </div>
+        {dictationMessage ? <p className={isDictating ? "success-message" : "warning-message"}>{dictationMessage}</p> : null}
+        <textarea
+          className="thought-textarea"
+          value={thoughtText}
+          onChange={(event) => setThoughtText(event.target.value)}
+          rows={8}
+          placeholder="Sprich oder schreibe hier deinen Gedankengang: Figuren, Stimmung, wichtige Szenen, Ziel des Buches, besondere Wuensche..."
+        />
+        <div className="form-actions">
+          <button
+            className="button primary"
+            type="button"
+            onClick={sendThoughtsToGpt}
+            disabled={missingFields.length > 0 || !thoughtText.trim()}
+          >
+            Gedanken in meinen GPT einfuegen
+          </button>
+        </div>
       </section>
 
       <section className="detail-panel">
@@ -250,4 +357,37 @@ function DataItem({ label, value }: { label: string; value: string }) {
       <dd>{value}</dd>
     </div>
   );
+}
+
+interface SpeechRecognitionResultLike {
+  0?: {
+    transcript: string;
+  };
+}
+
+interface SpeechRecognitionEventLike {
+  resultIndex: number;
+  results: ArrayLike<SpeechRecognitionResultLike>;
+}
+
+interface SpeechRecognitionLike {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null;
+  onerror: (() => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+}
+
+type SpeechRecognitionConstructor = new () => SpeechRecognitionLike;
+
+function getSpeechRecognitionConstructor(): SpeechRecognitionConstructor | undefined {
+  const speechWindow = window as Window & {
+    SpeechRecognition?: SpeechRecognitionConstructor;
+    webkitSpeechRecognition?: SpeechRecognitionConstructor;
+  };
+
+  return speechWindow.SpeechRecognition ?? speechWindow.webkitSpeechRecognition;
 }

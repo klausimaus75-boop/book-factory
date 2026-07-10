@@ -8,6 +8,7 @@ import {
   getMissingBookConceptFields,
   saveBookConceptPrompt,
   saveBookConceptResult,
+  saveBookConceptThoughts,
   updateBookConceptQuality
 } from "./bookConcept";
 import { calculateProgress } from "./workflow";
@@ -34,6 +35,23 @@ describe("book concept workflow", () => {
     expect(prompt).toContain("Freundschaft im Zauberwald");
     expect(prompt).toContain("1. Arbeitstitel");
     expect(prompt).toContain("12. Kurze Gesamtzusammenfassung");
+  });
+
+  it("adds user thoughts to the handover prompt", () => {
+    const prompt = generateBookConceptPrompt(makeProject(), "Der Mond soll Angst vor dem Dunkeln haben.");
+
+    expect(prompt).toContain("Zusaetzliche Gedanken des Nutzers");
+    expect(prompt).toContain("Der Mond soll Angst vor dem Dunkeln haben.");
+    expect(prompt).toContain("verbindlichen Projektdaten");
+  });
+
+  it("saves book concept thoughts and starts the workflow step", () => {
+    const project = saveBookConceptThoughts(makeProject(), "Meine Grundidee", new Date("2026-07-10T13:00:00.000Z"));
+    const work = getBookConceptWork(project);
+
+    expect(work.thoughts).toBe("Meine Grundidee");
+    expect(work.thoughtsUpdatedAt).toBe("2026-07-10T13:00:00.000Z");
+    expect(project.workflowSteps.find((step) => step.id === "book-concept")?.status).toBe("in-progress");
   });
 
   it("reports missing required project data", () => {
