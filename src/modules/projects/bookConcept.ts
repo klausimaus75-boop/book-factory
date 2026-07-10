@@ -71,12 +71,13 @@ export function getMissingBookConceptFields(project: Project): string[] {
 }
 
 export function generateBookConceptPrompt(project: Project): string {
-  return `Du bist ein spezialisierter GPT für die Entwicklung professioneller Kinderbuchkonzepte.
+  return `Du bist ein spezialisierter GPT für die Entwicklung professioneller Buchkonzepte.
 
-Erstelle aus den folgenden Projektdaten ein vollständiges, logisches und kindgerechtes Buchkonzept.
+Erstelle aus den folgenden Projektdaten ein vollständiges, logisches und zielgruppengerechtes Buchkonzept.
 
 Projektinformationen:
 - Projekttitel: ${project.title}
+- Buchart: ${project.bookType}
 - Thema: ${project.topic}
 - Zielgruppe: ${project.targetAudience}
 - Altersspanne: ${project.ageRange}
@@ -87,13 +88,14 @@ Projektinformationen:
 - Stil und Ton: ${project.styleAndTone}
 
 Anforderungen:
-- Die Sprache und Idee müssen kindgerecht und für die Altersspanne geeignet sein.
-- Die Handlung muss verständlich, logisch und emotional nachvollziehbar sein.
-- Hauptfigur und Nebenfiguren müssen klare Rollen haben.
+- Sprache, Struktur und Idee müssen zur Zielgruppe, Buchart und Altersspanne passen.
+- Bei erzählenden Büchern muss die Handlung verständlich, logisch und emotional nachvollziehbar sein.
+- Bei Sach-, Planer-, Notiz-, Activity- oder Low-Content-Büchern muss die Struktur praktisch nutzbar und klar gegliedert sein.
+- Figuren, Aufgaben, Kapitel oder Seitentypen müssen klare Rollen/Funktionen haben.
 - Konflikt, Lösungsweg und Schluss dürfen keine logischen Widersprüche enthalten.
 - Das Konzept muss zum geplanten Umfang und Buchformat passen.
 - Die Tonalität muss dem Projekt entsprechen.
-- Vermeide problematische, beängstigende oder nicht altersgerechte Inhalte.
+- Vermeide problematische, unpassende oder nicht zielgruppengerechte Inhalte.
 
 Gib das Ergebnis exakt in dieser Struktur aus:
 

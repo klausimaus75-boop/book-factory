@@ -28,7 +28,7 @@ export interface BookConceptWork {
 export interface Project {
   id: string;
   title: string;
-  bookType: "Kinderbuch";
+  bookType: string;
   topic: string;
   targetAudience: string;
   ageRange: string;
@@ -46,7 +46,7 @@ export interface Project {
 
 export interface ProjectFormValues {
   title: string;
-  bookType: "Kinderbuch";
+  bookType: string;
   topic: string;
   targetAudience: string;
   ageRange: string;

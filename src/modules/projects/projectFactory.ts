@@ -6,13 +6,13 @@ export const emptyProjectFormValues: ProjectFormValues = {
   title: "",
   bookType: "Kinderbuch",
   topic: projectSelectOptions.topic[0],
-  targetAudience: projectSelectOptions.targetAudience[2],
-  ageRange: "4-6 Jahre",
+  targetAudience: "Erwachsene",
+  ageRange: "18+",
   language: projectSelectOptions.language[0],
-  bookFormat: projectSelectOptions.bookFormat[1],
-  pageCount: "32",
-  narrativePerspective: projectSelectOptions.narrativePerspective[0],
-  styleAndTone: projectSelectOptions.styleAndTone[0]
+  bookFormat: "Taschenbuch",
+  pageCount: "120",
+  narrativePerspective: "Nicht erzählend / strukturierter Inhalt",
+  styleAndTone: "Professionell und sachlich"
 };
 
 export function createProject(values: ProjectFormValues, now = new Date()): Project {
