@@ -81,6 +81,7 @@ export function ProjectDetailPage() {
             <DataItem label="Altersspanne" value={currentProject.ageRange} />
             <DataItem label="Sprache" value={currentProject.language} />
             <DataItem label="Buchformat" value={currentProject.bookFormat} />
+            <DataItem label="Beschnittzugabe Innenblock" value={currentProject.interiorBleed ?? "Nein - ohne Beschnitt"} />
             <DataItem label="Seitenzahl" value={String(currentProject.pageCount)} />
             <DataItem label="Erzählperspektive" value={currentProject.narrativePerspective} />
             <DataItem label="Stil und Ton" value={currentProject.styleAndTone} />

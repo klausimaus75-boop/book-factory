@@ -12,6 +12,7 @@ export const requiredBookConceptProjectFields: Array<{
     | "ageRange"
     | "language"
     | "bookFormat"
+    | "interiorBleed"
     | "pageCount"
     | "narrativePerspective"
     | "styleAndTone"
@@ -24,6 +25,7 @@ export const requiredBookConceptProjectFields: Array<{
   { key: "ageRange", label: "Altersspanne" },
   { key: "language", label: "Sprache" },
   { key: "bookFormat", label: "Buchformat" },
+  { key: "interiorBleed", label: "Beschnittzugabe Innenblock" },
   { key: "pageCount", label: "Seitenzahl" },
   { key: "narrativePerspective", label: "Erzählperspektive" },
   { key: "styleAndTone", label: "Stil und Ton" }
@@ -83,6 +85,7 @@ Projektinformationen:
 - Altersspanne: ${project.ageRange}
 - Sprache: ${project.language}
 - Buchformat: ${project.bookFormat}
+- Beschnittzugabe Innenblock: ${project.interiorBleed ?? "Nein - ohne Beschnitt"}
 - Seitenzahl: ${project.pageCount}
 - Erzählperspektive: ${project.narrativePerspective}
 - Stil und Ton: ${project.styleAndTone}

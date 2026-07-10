@@ -50,6 +50,10 @@ export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }:
         <SelectField value={values.bookFormat} options={projectSelectOptions.bookFormat} onChange={(value) => updateField("bookFormat", value)} />
       </Field>
 
+      <Field label="Beschnittzugabe Innenblock" error={errors.interiorBleed}>
+        <SelectField value={values.interiorBleed} options={projectSelectOptions.interiorBleed} onChange={(value) => updateField("interiorBleed", value)} />
+      </Field>
+
       <Field label="Seitenzahl" error={errors.pageCount}>
         <SelectField value={values.pageCount} options={projectSelectOptions.pageCount} onChange={(value) => updateField("pageCount", value)} />
       </Field>

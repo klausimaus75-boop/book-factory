@@ -7,6 +7,7 @@ const requiredFields: Array<keyof ProjectFormValues> = [
   "ageRange",
   "language",
   "bookFormat",
+  "interiorBleed",
   "pageCount",
   "narrativePerspective",
   "styleAndTone"

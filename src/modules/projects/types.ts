@@ -34,6 +34,7 @@ export interface Project {
   ageRange: string;
   language: string;
   bookFormat: string;
+  interiorBleed?: string;
   pageCount: number;
   narrativePerspective: string;
   styleAndTone: string;
@@ -52,6 +53,7 @@ export interface ProjectFormValues {
   ageRange: string;
   language: string;
   bookFormat: string;
+  interiorBleed: string;
   pageCount: string;
   narrativePerspective: string;
   styleAndTone: string;

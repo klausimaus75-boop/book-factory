@@ -27,6 +27,7 @@ This folder contains the binding project documentation for Book Factory.
 - [Product Vision](product/product-vision.md)
 - [MVP Scope](product/mvp-scope.md)
 - [First User Workflow](product/first-user-workflow.md)
+- [Book Format Source](product/book-format-source.md)
 - [Development Phases](roadmap/development-phases.md)
 - [Roadmap](roadmap/roadmap.md)
 - [Coding Standards](standards/coding-standards.md)

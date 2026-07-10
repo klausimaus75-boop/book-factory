@@ -9,7 +9,8 @@ export const emptyProjectFormValues: ProjectFormValues = {
   targetAudience: "Erwachsene",
   ageRange: "18+",
   language: projectSelectOptions.language[0],
-  bookFormat: "Taschenbuch",
+  bookFormat: "6 x 9 Zoll / 152,4 x 228,6 mm",
+  interiorBleed: "Nein - ohne Beschnitt",
   pageCount: "120",
   narrativePerspective: "Nicht erzählend / strukturierter Inhalt",
   styleAndTone: "Professionell und sachlich"
@@ -28,6 +29,7 @@ export function createProject(values: ProjectFormValues, now = new Date()): Proj
     ageRange: values.ageRange.trim(),
     language: values.language.trim(),
     bookFormat: values.bookFormat.trim(),
+    interiorBleed: values.interiorBleed.trim(),
     pageCount: Number(values.pageCount),
     narrativePerspective: values.narrativePerspective.trim(),
     styleAndTone: values.styleAndTone.trim(),
@@ -47,6 +49,7 @@ export function projectToFormValues(project: Project): ProjectFormValues {
     ageRange: project.ageRange,
     language: project.language,
     bookFormat: project.bookFormat,
+    interiorBleed: project.interiorBleed ?? "Nein - ohne Beschnitt",
     pageCount: String(project.pageCount),
     narrativePerspective: project.narrativePerspective,
     styleAndTone: project.styleAndTone
@@ -63,6 +66,7 @@ export function updateProjectFromForm(project: Project, values: ProjectFormValue
     ageRange: values.ageRange.trim(),
     language: values.language.trim(),
     bookFormat: values.bookFormat.trim(),
+    interiorBleed: values.interiorBleed.trim(),
     pageCount: Number(values.pageCount),
     narrativePerspective: values.narrativePerspective.trim(),
     styleAndTone: values.styleAndTone.trim(),
