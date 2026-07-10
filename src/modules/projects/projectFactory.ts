@@ -1,17 +1,18 @@
 import { createDefaultWorkflowSteps, deriveProjectStatus } from "./workflow";
+import { projectSelectOptions } from "./projectOptions";
 import type { Project, ProjectFormValues } from "./types";
 
 export const emptyProjectFormValues: ProjectFormValues = {
   title: "",
   bookType: "Kinderbuch",
-  topic: "",
-  targetAudience: "",
-  ageRange: "",
-  language: "Deutsch",
-  bookFormat: "32 Seiten",
+  topic: projectSelectOptions.topic[0],
+  targetAudience: projectSelectOptions.targetAudience[2],
+  ageRange: "4-6 Jahre",
+  language: projectSelectOptions.language[0],
+  bookFormat: projectSelectOptions.bookFormat[1],
   pageCount: "32",
-  narrativePerspective: "Dritte Person",
-  styleAndTone: "Warm, klar und altersgerecht"
+  narrativePerspective: projectSelectOptions.narrativePerspective[0],
+  styleAndTone: projectSelectOptions.styleAndTone[0]
 };
 
 export function createProject(values: ProjectFormValues, now = new Date()): Project {

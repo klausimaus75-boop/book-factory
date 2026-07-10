@@ -1,4 +1,5 @@
 import type { FormEvent } from "react";
+import { projectSelectOptions } from "./projectOptions";
 import type { ProjectFormValues, ProjectValidationErrors } from "./types";
 
 interface ProjectFormProps {
@@ -26,64 +27,43 @@ export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }:
       </Field>
 
       <Field label="Buchart" error={errors.bookType}>
-        <select value={values.bookType} onChange={(event) => updateField("bookType", event.target.value)}>
-          <option>Kinderbuch</option>
-        </select>
+        <SelectField value={values.bookType} options={projectSelectOptions.bookType} onChange={(value) => updateField("bookType", value)} />
       </Field>
 
       <Field label="Thema" error={errors.topic}>
-        <input value={values.topic} onChange={(event) => updateField("topic", event.target.value)} />
+        <SelectField value={values.topic} options={projectSelectOptions.topic} onChange={(value) => updateField("topic", value)} />
       </Field>
 
       <Field label="Zielgruppe" error={errors.targetAudience}>
-        <input
-          value={values.targetAudience}
-          onChange={(event) => updateField("targetAudience", event.target.value)}
-          placeholder="z. B. Vorschulkinder"
-        />
+        <SelectField value={values.targetAudience} options={projectSelectOptions.targetAudience} onChange={(value) => updateField("targetAudience", value)} />
       </Field>
 
       <Field label="Altersspanne" error={errors.ageRange}>
-        <input
-          value={values.ageRange}
-          onChange={(event) => updateField("ageRange", event.target.value)}
-          placeholder="z. B. 4-6 Jahre"
-        />
+        <SelectField value={values.ageRange} options={projectSelectOptions.ageRange} onChange={(value) => updateField("ageRange", value)} />
       </Field>
 
       <Field label="Sprache" error={errors.language}>
-        <input value={values.language} onChange={(event) => updateField("language", event.target.value)} />
+        <SelectField value={values.language} options={projectSelectOptions.language} onChange={(value) => updateField("language", value)} />
       </Field>
 
       <Field label="Buchformat" error={errors.bookFormat}>
-        <input
-          value={values.bookFormat}
-          onChange={(event) => updateField("bookFormat", event.target.value)}
-        />
+        <SelectField value={values.bookFormat} options={projectSelectOptions.bookFormat} onChange={(value) => updateField("bookFormat", value)} />
       </Field>
 
       <Field label="Seitenzahl" error={errors.pageCount}>
-        <input
-          type="number"
-          min="1"
-          value={values.pageCount}
-          onChange={(event) => updateField("pageCount", event.target.value)}
-        />
+        <SelectField value={values.pageCount} options={projectSelectOptions.pageCount} onChange={(value) => updateField("pageCount", value)} />
       </Field>
 
       <Field label="Erzählperspektive" error={errors.narrativePerspective}>
-        <input
+        <SelectField
           value={values.narrativePerspective}
-          onChange={(event) => updateField("narrativePerspective", event.target.value)}
+          options={projectSelectOptions.narrativePerspective}
+          onChange={(value) => updateField("narrativePerspective", value)}
         />
       </Field>
 
       <Field label="Stil und Ton" error={errors.styleAndTone} wide>
-        <textarea
-          value={values.styleAndTone}
-          onChange={(event) => updateField("styleAndTone", event.target.value)}
-          rows={4}
-        />
+        <SelectField value={values.styleAndTone} options={projectSelectOptions.styleAndTone} onChange={(value) => updateField("styleAndTone", value)} />
       </Field>
 
       <div className="form-actions">
@@ -92,6 +72,29 @@ export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }:
         </button>
       </div>
     </form>
+  );
+}
+
+function SelectField({
+  value,
+  options,
+  onChange
+}: {
+  value: string;
+  options: string[];
+  onChange: (value: string) => void;
+}) {
+  const normalizedOptions = options.includes(value) || value.trim() === "" ? options : [value, ...options];
+
+  return (
+    <select value={value} onChange={(event) => onChange(event.target.value)}>
+      <option value="">Bitte auswählen</option>
+      {normalizedOptions.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
   );
 }
 
