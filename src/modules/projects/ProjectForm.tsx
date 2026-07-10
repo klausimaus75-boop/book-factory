@@ -88,60 +88,38 @@ function SelectField({
   options: string[];
   onChange: (value: string) => void;
 }) {
-  const customOptionValue = "__custom__";
-  const normalizedOptions = options.includes(value) || value.trim() === "" ? options : [value, ...options];
-  const [isCustomMode, setIsCustomMode] = useState(Boolean(value.trim()) && !options.includes(value));
+  const isKnownOption = options.includes(value);
+  const [customValue, setCustomValue] = useState(isKnownOption ? "" : value);
 
   function handleSelectChange(nextValue: string) {
-    if (nextValue === customOptionValue) {
-      setIsCustomMode(true);
-      onChange("");
-      return;
-    }
+    setCustomValue("");
+    onChange(nextValue);
+  }
 
-    setIsCustomMode(false);
+  function handleCustomChange(nextValue: string) {
+    setCustomValue(nextValue);
     onChange(nextValue);
   }
 
   return (
     <>
       <select
-        value={isCustomMode ? customOptionValue : value}
+        value={isKnownOption ? value : ""}
         onChange={(event) => handleSelectChange(event.target.value)}
       >
         <option value="">Bitte auswählen</option>
-        {normalizedOptions.map((option) => (
+        {options.map((option) => (
           <option key={option} value={option}>
             {option}
           </option>
         ))}
-        <option value={customOptionValue}>Eigene Angabe</option>
       </select>
-      {!isCustomMode ? (
-        <button className="text-button" type="button" onClick={() => setIsCustomMode(true)}>
-          Eigene Angabe eintragen
-        </button>
-      ) : null}
-      {isCustomMode ? (
-        <div className="custom-select-row">
-          <input
-            className="custom-select-input"
-            value={value}
-            placeholder="Eigene Angabe eintragen"
-            onChange={(event) => onChange(event.target.value)}
-          />
-          <button
-            className="text-button"
-            type="button"
-            onClick={() => {
-              setIsCustomMode(false);
-              onChange("");
-            }}
-          >
-            Zur Auswahl zurück
-          </button>
-        </div>
-      ) : null}
+      <input
+        className="custom-select-input"
+        value={customValue}
+        placeholder="Eigene Angabe eintragen"
+        onChange={(event) => handleCustomChange(event.target.value)}
+      />
     </>
   );
 }
