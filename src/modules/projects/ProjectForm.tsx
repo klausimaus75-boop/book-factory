@@ -67,7 +67,12 @@ export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }:
       </Field>
 
       <Field label="Stil und Ton" error={errors.styleAndTone} wide>
-        <SelectField value={values.styleAndTone} options={projectSelectOptions.styleAndTone} onChange={(value) => updateField("styleAndTone", value)} />
+        <SelectField
+          value={values.styleAndTone}
+          options={projectSelectOptions.styleAndTone}
+          allowCustom
+          onChange={(value) => updateField("styleAndTone", value)}
+        />
       </Field>
 
       <div className="form-actions">
@@ -82,14 +87,16 @@ export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }:
 function SelectField({
   value,
   options,
+  allowCustom = false,
   onChange
 }: {
   value: string;
   options: string[];
+  allowCustom?: boolean;
   onChange: (value: string) => void;
 }) {
   const isKnownOption = options.includes(value);
-  const [customValue, setCustomValue] = useState(isKnownOption ? "" : value);
+  const [customValue, setCustomValue] = useState(allowCustom && !isKnownOption ? value : "");
 
   function handleSelectChange(nextValue: string) {
     setCustomValue("");
@@ -114,12 +121,14 @@ function SelectField({
           </option>
         ))}
       </select>
-      <input
-        className="custom-select-input"
-        value={customValue}
-        placeholder="Eigene Angabe eintragen"
-        onChange={(event) => handleCustomChange(event.target.value)}
-      />
+      {allowCustom ? (
+        <input
+          className="custom-select-input"
+          value={customValue}
+          placeholder="Eigene Angabe eintragen"
+          onChange={(event) => handleCustomChange(event.target.value)}
+        />
+      ) : null}
     </>
   );
 }
