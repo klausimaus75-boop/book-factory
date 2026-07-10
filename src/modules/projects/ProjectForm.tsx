@@ -72,7 +72,14 @@ export function ProjectForm({ values, errors, submitLabel, onChange, onSubmit }:
       </Field>
 
       <Field label="Seitenzahl" error={errors.pageCount}>
-        <SelectField value={values.pageCount} options={recommendedOptions.pageCount} onChange={(value) => updateField("pageCount", value)} />
+        <SelectField
+          value={values.pageCount}
+          options={recommendedOptions.pageCount}
+          allowCustom
+          customInputType="number"
+          customPlaceholder="Eigene Seitenzahl eintragen"
+          onChange={(value) => updateField("pageCount", value)}
+        />
       </Field>
 
       <Field label="Erzählperspektive" error={errors.narrativePerspective}>
@@ -105,11 +112,15 @@ function SelectField({
   value,
   options,
   allowCustom = false,
+  customInputType = "text",
+  customPlaceholder = "Eigene Angabe eintragen",
   onChange
 }: {
   value: string;
   options: string[];
   allowCustom?: boolean;
+  customInputType?: "text" | "number";
+  customPlaceholder?: string;
   onChange: (value: string) => void;
 }) {
   const isKnownOption = options.includes(value);
@@ -141,8 +152,11 @@ function SelectField({
       {allowCustom ? (
         <input
           className="custom-select-input"
+          type={customInputType}
+          min={customInputType === "number" ? 1 : undefined}
+          step={customInputType === "number" ? 1 : undefined}
           value={customValue}
-          placeholder="Eigene Angabe eintragen"
+          placeholder={customPlaceholder}
           onChange={(event) => handleCustomChange(event.target.value)}
         />
       ) : null}
