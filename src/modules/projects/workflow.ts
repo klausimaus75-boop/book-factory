@@ -3,10 +3,11 @@ import type { WorkflowStatus, WorkflowStep } from "./types";
 export const WORKFLOW_STATUS_LABELS: Record<WorkflowStatus, string> = {
   "not-started": "Nicht begonnen",
   "in-progress": "In Bearbeitung",
+  review: "Zur Prüfung",
   completed: "Abgeschlossen"
 };
 
-export const workflowStatusOptions: WorkflowStatus[] = ["not-started", "in-progress", "completed"];
+export const workflowStatusOptions: WorkflowStatus[] = ["not-started", "in-progress", "review", "completed"];
 
 export const defaultWorkflowSteps: WorkflowStep[] = [
   {

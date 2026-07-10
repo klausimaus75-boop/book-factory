@@ -3,6 +3,7 @@ import { formatDateTime } from "./formatters";
 import { useProjects } from "./useProjects";
 import { calculateProgress, deriveProjectStatus, workflowStatusOptions, WORKFLOW_STATUS_LABELS } from "./workflow";
 import type { WorkflowStatus } from "./types";
+import { bookConceptStepId, canCompleteBookConcept, getBookConceptWork } from "./bookConcept";
 
 export function ProjectDetailPage() {
   const { projectId } = useParams();
@@ -19,6 +20,11 @@ export function ProjectDetailPage() {
   const completedCount = currentProject.workflowSteps.filter((step) => step.status === "completed").length;
 
   function changeStepStatus(stepId: string, status: WorkflowStatus) {
+    if (stepId === bookConceptStepId && status === "completed" && !canCompleteBookConcept(getBookConceptWork(currentProject))) {
+      window.alert("Der Buchkonzept-Schritt kann erst abgeschlossen werden, wenn ein Ergebnis gespeichert und alle Prüfpunkte bestätigt wurden.");
+      return;
+    }
+
     const workflowSteps = currentProject.workflowSteps.map((step) =>
       step.id === stepId ? { ...step, status } : step
     );
@@ -102,7 +108,13 @@ export function ProjectDetailPage() {
             <article className="workflow-step" key={step.id}>
               <div className="step-index">{index + 1}</div>
               <div className="step-body">
-                <h3>{step.title}</h3>
+                <h3>
+                  {step.id === "book-concept" ? (
+                    <Link to={`/projects/${currentProject.id}/steps/book-concept`}>{step.title}</Link>
+                  ) : (
+                    step.title
+                  )}
+                </h3>
                 <p>{step.description}</p>
               </div>
               <label className="status-select">

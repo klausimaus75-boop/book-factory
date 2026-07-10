@@ -15,6 +15,9 @@ export function AppLayout({ children }: PropsWithChildren) {
           <Link className={location.pathname === "/" ? "nav-link active" : "nav-link"} to="/">
             Projekte
           </Link>
+          <Link className={location.pathname === "/settings" ? "nav-link active" : "nav-link"} to="/settings">
+            Einstellungen
+          </Link>
         </nav>
       </header>
       <main className="page">{children}</main>

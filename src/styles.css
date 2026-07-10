@@ -454,6 +454,130 @@ textarea {
   font-weight: 700;
 }
 
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.workflow-step h3 a {
+  color: #1f5f52;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.settings-list {
+  display: grid;
+  gap: 18px;
+}
+
+.form-grid.flat {
+  border: 0;
+  box-shadow: none;
+  padding: 18px 0 0;
+}
+
+.section-heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.large-textarea {
+  width: 100%;
+  min-height: 260px;
+  border: 1px solid #cfd6df;
+  border-radius: 8px;
+  padding: 14px;
+  color: #172033;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.large-textarea:focus {
+  border-color: #1f5f52;
+  box-shadow: 0 0 0 3px rgba(31, 95, 82, 0.14);
+  outline: none;
+}
+
+.warning-box {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  margin-top: 14px;
+  border: 1px solid #f3c26b;
+  border-radius: 8px;
+  background: #fff9ed;
+  padding: 16px;
+}
+
+.warning-message,
+.success-message {
+  margin: 12px 0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.warning-message {
+  background: #fff9ed;
+  color: #8a5700;
+}
+
+.warning-message a {
+  text-decoration: underline;
+}
+
+.success-message {
+  background: #edf7f4;
+  color: #1f5f52;
+}
+
+.checklist,
+.version-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.toggle-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #344054;
+  font-weight: 650;
+}
+
+.toggle-field input {
+  width: 18px;
+  height: 18px;
+  accent-color: #1f5f52;
+}
+
+.version-list details {
+  border: 1px solid #e4e8ee;
+  border-radius: 8px;
+  background: #fbfcfd;
+  padding: 12px;
+}
+
+.version-list summary {
+  cursor: pointer;
+  font-weight: 720;
+}
+
+.version-list pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  margin: 12px 0 0;
+  color: #344054;
+}
+
 @media (max-width: 760px) {
   .topbar,
   .page-header {
@@ -488,5 +612,9 @@ textarea {
   .actions .button,
   .page-header .button {
     width: 100%;
+  }
+
+  .section-heading-row {
+    flex-direction: column;
   }
 }

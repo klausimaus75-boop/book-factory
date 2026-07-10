@@ -1,4 +1,4 @@
-export type WorkflowStatus = "not-started" | "in-progress" | "completed";
+export type WorkflowStatus = "not-started" | "in-progress" | "review" | "completed";
 
 export type ProjectStatus = "Entwurf" | "In Bearbeitung" | "Abgeschlossen";
 
@@ -7,6 +7,22 @@ export interface WorkflowStep {
   title: string;
   description: string;
   status: WorkflowStatus;
+}
+
+export interface StepResultVersion {
+  id: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface BookConceptWork {
+  prompt: string;
+  promptUpdatedAt?: string;
+  result?: string;
+  resultCreatedAt?: string;
+  resultUpdatedAt?: string;
+  previousVersions: StepResultVersion[];
+  qualityChecks: Record<string, boolean>;
 }
 
 export interface Project {
@@ -23,6 +39,7 @@ export interface Project {
   styleAndTone: string;
   status: ProjectStatus;
   workflowSteps: WorkflowStep[];
+  bookConcept?: BookConceptWork;
   createdAt: string;
   updatedAt: string;
 }
