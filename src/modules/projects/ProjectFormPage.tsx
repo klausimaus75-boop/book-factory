@@ -48,7 +48,7 @@ export function ProjectFormPage({ mode }: ProjectFormPageProps) {
       <div className="page-header">
         <div>
           <p className="section-label">{mode === "edit" ? "Projekt bearbeiten" : "Neues Projekt"}</p>
-          <h1>{mode === "edit" ? "Projektdaten bearbeiten" : "Kinderbuchprojekt erstellen"}</h1>
+          <h1>{mode === "edit" ? "Projektdaten bearbeiten" : "Buchprojekt erstellen"}</h1>
           <p>Fülle die Grunddaten sorgfältig aus. Diese Angaben steuern später den gesamten Workflow.</p>
         </div>
         <Link className="button secondary" to={existingProject ? `/projects/${existingProject.id}` : "/"}>

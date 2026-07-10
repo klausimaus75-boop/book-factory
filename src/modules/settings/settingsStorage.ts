@@ -4,12 +4,15 @@ export const SETTINGS_STORAGE_KEY = "book-factory.settings.v1";
 
 export const defaultConceptGptProfile: GptProfile = {
   id: "children-book-concept-gpt",
-  name: "Kinderbuch-Konzept-GPT",
-  description: "Erstellt strukturierte Buchkonzepte für Kinderbuchprojekte.",
+  name: "Buchkonzept-GPT",
+  description: "Erstellt strukturierte Buchkonzepte fuer alle Bucharten und Genres.",
   taskArea: "Buchkonzept",
   gptLink: "",
   isActive: true
 };
+
+const legacyDefaultConceptNames = new Set(["Kinderbuch-Konzept-GPT"]);
+const legacyDefaultConceptDescriptions = new Set(["Erstellt strukturierte Buchkonzepte fÃ¼r Kinderbuchprojekte."]);
 
 export interface SettingsRepository {
   get(): UserSettings;
@@ -19,10 +22,23 @@ export interface SettingsRepository {
 export function createLocalStorageSettingsRepository(storage: Storage): SettingsRepository {
   function normalize(settings: Partial<UserSettings> | null): UserSettings {
     const profiles = Array.isArray(settings?.gptProfiles) ? settings.gptProfiles : [];
-    const hasDefaultProfile = profiles.some((profile) => profile.id === defaultConceptGptProfile.id);
+    const migratedProfiles = profiles.map((profile) => {
+      if (profile.id !== defaultConceptGptProfile.id) {
+        return profile;
+      }
+
+      return {
+        ...profile,
+        name: legacyDefaultConceptNames.has(profile.name) ? defaultConceptGptProfile.name : profile.name,
+        description: legacyDefaultConceptDescriptions.has(profile.description)
+          ? defaultConceptGptProfile.description
+          : profile.description
+      };
+    });
+    const hasDefaultProfile = migratedProfiles.some((profile) => profile.id === defaultConceptGptProfile.id);
 
     return {
-      gptProfiles: hasDefaultProfile ? profiles : [defaultConceptGptProfile, ...profiles]
+      gptProfiles: hasDefaultProfile ? migratedProfiles : [defaultConceptGptProfile, ...migratedProfiles]
     };
   }
 

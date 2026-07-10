@@ -32,7 +32,7 @@ export function DashboardPage() {
         <div className="empty-state">
           <h2>Noch keine Projekte vorhanden</h2>
           <p>
-            Lege dein erstes Kinderbuchprojekt an. Danach erscheint es hier mit Status,
+            Lege dein erstes Buchprojekt an. Danach erscheint es hier mit Status,
             Fortschritt und letztem Bearbeitungszeitpunkt.
           </p>
           <Link className="button primary" to="/projects/new">

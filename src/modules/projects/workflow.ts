@@ -19,7 +19,7 @@ export const defaultWorkflowSteps: WorkflowStep[] = [
   {
     id: "book-concept",
     title: "Buchkonzept",
-    description: "Die Buchidee wird zu einem klaren Kinderbuchkonzept ausgearbeitet.",
+    description: "Die Buchidee wird zu einem klaren Buchkonzept ausgearbeitet.",
     status: "not-started"
   },
   {
