@@ -117,13 +117,30 @@ function SelectField({
         ))}
         <option value={customOptionValue}>Eigene Angabe</option>
       </select>
+      {!isCustomMode ? (
+        <button className="text-button" type="button" onClick={() => setIsCustomMode(true)}>
+          Eigene Angabe eintragen
+        </button>
+      ) : null}
       {isCustomMode ? (
-        <input
-          className="custom-select-input"
-          value={value}
-          placeholder="Eigene Angabe eintragen"
-          onChange={(event) => onChange(event.target.value)}
-        />
+        <div className="custom-select-row">
+          <input
+            className="custom-select-input"
+            value={value}
+            placeholder="Eigene Angabe eintragen"
+            onChange={(event) => onChange(event.target.value)}
+          />
+          <button
+            className="text-button"
+            type="button"
+            onClick={() => {
+              setIsCustomMode(false);
+              onChange("");
+            }}
+          >
+            Zur Auswahl zurück
+          </button>
+        </div>
       ) : null}
     </>
   );

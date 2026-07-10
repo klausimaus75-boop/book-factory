@@ -342,6 +342,28 @@ textarea {
   margin-top: 8px;
 }
 
+.custom-select-row {
+  display: grid;
+  gap: 8px;
+}
+
+.text-button {
+  width: fit-content;
+  border: 0;
+  background: transparent;
+  color: #1f5f52;
+  cursor: pointer;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 740;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.text-button:hover {
+  color: #174a40;
+}
+
 .field textarea {
   resize: vertical;
 }
