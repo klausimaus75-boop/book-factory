@@ -32,17 +32,20 @@ describe("book concept workflow", () => {
 
     expect(prompt).toContain("Du bist der Kinderbuch-Konzept-GPT");
     expect(prompt).toContain("Aufgabenfokus");
+    expect(prompt).toContain("Verbindliche Projektdaten");
+    expect(prompt).toContain("Seitenzahl");
     expect(prompt).toContain("Der mutige Mond");
     expect(prompt).toContain("Freundschaft im Zauberwald");
     expect(prompt).toContain("1. Arbeitstitel");
-    expect(prompt).toContain("12. Kurze Gesamtzusammenfassung");
+    expect(prompt).toContain("16. Naechste Produktionsschritte");
   });
 
   it("adds user thoughts to the handover prompt", () => {
     const prompt = generateBookConceptPrompt(makeProject(), "Der Mond soll Angst vor dem Dunkeln haben.");
 
-    expect(prompt).toContain("Zusaetzliche Gedanken des Nutzers");
+    expect(prompt).toContain("Gedanken des Nutzers aus dem Gedankenfenster");
     expect(prompt).toContain("Der Mond soll Angst vor dem Dunkeln haben.");
+    expect(prompt).toContain("Extrahiere daraus Figuren");
     expect(prompt).toContain("verbindlichen Projektdaten");
   });
 

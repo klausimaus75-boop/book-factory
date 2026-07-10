@@ -212,8 +212,8 @@ export function BookConceptStepPage() {
           <div>
             <h2>Gedankenfenster</h2>
             <p>
-              Sammle hier deine Idee frei als Text oder per Diktat. Daraus entsteht der Arbeitsauftrag fuer deinen
-              Buchkonzept-GPT.
+              Sammle hier deine Idee frei als Text oder per Diktat. Book Factory erstellt daraus einen strukturierten
+              Konzept-Prompt mit Seitenzahl, Altersgruppe, Zielgruppe und Thema.
             </p>
           </div>
           <div className="actions">
