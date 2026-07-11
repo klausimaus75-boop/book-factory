@@ -5,7 +5,7 @@ export function CheckoutPage() {
       <p className="lead">Entwicklungsmodus: Der spätere Einmalkauf ist für Stripe Checkout Sessions vorgesehen.</p>
       <div className="panel">
         <h2>Produktkonfiguration</h2>
-        <p>KDP MASTERKURS · Einmalkauf · Stripe noch nicht verbunden.</p>
+        <p>KREA MIX · Einmalkauf · Stripe noch nicht verbunden.</p>
       </div>
     </section>
   );

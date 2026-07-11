@@ -13,7 +13,7 @@ export function DashboardPage() {
     <section className="dashboard-page">
       <div className="page-title-row">
         <div>
-          <h1>Willkommen im KDP MASTERKURS</h1>
+          <h1>Willkommen bei KREA MIX</h1>
           <p>Arbeite Schritt für Schritt an deinem echten Buchprojekt.</p>
         </div>
         <Link className="button primary" to={`/lesson/${currentLesson.id}`}>

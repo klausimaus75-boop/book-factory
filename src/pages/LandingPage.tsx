@@ -1,48 +1,80 @@
 import { Link } from "react-router-dom";
-import { courseModules, journeySteps, resourceTemplates } from "../data/courseData";
+import { courseModules, resourceTemplates } from "../data/courseData";
 
 export function LandingPage() {
+  const visibleModules = courseModules.slice(1, 6);
+  const lessonCount = courseModules.reduce((sum, module) => sum + module.lessons.length, 0);
+
   return (
     <section className="landing">
       <div className="hero-section">
-        <div>
-          <h1>Von der Buchidee zum veröffentlichten Buch</h1>
-          <p>
-            Der komplette KDP-Kurs, der dich Schritt für Schritt durch Buchidee, Erstellung, Veröffentlichung und
-            Vermarktung führt.
-          </p>
+        <div className="hero-copy">
+          <h1>KREA MIX</h1>
+          <p className="hero-subtitle">Dein KDP Kurs von der Nische bis zur Veröffentlichung.</p>
+          <p>Schritt für Schritt zum eigenen Buch auf Amazon KDP. Praxisnah, verständlich und auf den Punkt.</p>
           <div className="actions">
             <Link className="button primary" to="/kurs">
-              Kurs ansehen
+              <span aria-hidden="true">▶</span>
+              Kurs starten
             </Link>
             <Link className="button secondary" to="/module">
-              Module entdecken
+              Module ansehen
             </Link>
           </div>
         </div>
-        <div className="dashboard-preview">
-          <strong>Kursreise</strong>
-          {journeySteps.map((step, index) => (
-            <span className={index === 0 ? "journey-pill active" : "journey-pill"} key={step}>
-              {step}
-            </span>
-          ))}
+
+        <div className="dashboard-preview overview-panel">
+          <strong>Überblick</strong>
+          <div className="overview-grid">
+            <article>
+              <span className="overview-icon">▱</span>
+              <b>{courseModules.length}</b>
+              <small>Module</small>
+            </article>
+            <article>
+              <span className="overview-icon">⌁</span>
+              <b>{lessonCount}</b>
+              <small>Lektionen</small>
+            </article>
+            <article>
+              <span className="overview-icon">□</span>
+              <b>{resourceTemplates.length}</b>
+              <small>Vorlagen</small>
+            </article>
+            <article>
+              <span className="overview-icon">○</span>
+              <b>0%</b>
+              <small>Fortschritt</small>
+            </article>
+          </div>
         </div>
       </div>
 
-      <section className="split-section">
-        <div>
-          <h2>Vom chaotischen KDP-Start zum klaren Kursweg</h2>
-          <p>
-            Viele Anfänger springen zwischen Buchidee, YouTube-Videos, Keyword-Recherche, Cover-Entwürfen und
-            widersprüchlichen Informationen. Der Masterkurs führt linear durch Entscheidungen, Aufgaben und Abschlüsse.
-          </p>
+      <section className="landing-dashboard">
+        <div className="panel module-list-panel">
+          <h2>KDP Module</h2>
+          <div className="module-preview-list">
+            {visibleModules.map((module) => (
+              <Link className="module-preview-row" key={module.id} to={`/module/${module.id}`}>
+                <span>{module.moduleNumber}</span>
+                <div className="module-thumb" aria-hidden="true" />
+                <strong>{module.title}</strong>
+                <i />
+                <small>0%</small>
+              </Link>
+            ))}
+          </div>
         </div>
-        <ol className="timeline-list">
-          {["Idee klären", "Markt prüfen", "Buchkonzept bauen", "Veröffentlichen", "Optimieren"].map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ol>
+
+        <div className="panel current-module-panel">
+          <h2>Aktuelles Modul</h2>
+          <div className="check-orb">✓</div>
+          <h3>Wähle ein Modul aus</h3>
+          <p>Wähle ein Modul aus der Liste, um die Inhalte anzuzeigen und loszulegen.</p>
+          <Link className="button primary" to="/module/module-01">
+            Modul öffnen
+          </Link>
+        </div>
       </section>
 
       <section id="inhalte" className="section-block">
@@ -60,7 +92,7 @@ export function LandingPage() {
 
       <section className="split-section">
         <div>
-          <h2>Enthaltene Vorlagen und Checklisten</h2>
+          <h2>Vorlagen und Checklisten</h2>
           <p>Jede Ressource ist an eine echte Projektentscheidung gekoppelt, damit du nicht nur konsumierst, sondern dein Buch weiterbaust.</p>
         </div>
         <div className="resource-mini-grid">

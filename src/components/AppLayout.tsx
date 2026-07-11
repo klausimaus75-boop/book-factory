@@ -17,19 +17,19 @@ export function AppLayout({ children }: PropsWithChildren) {
   return (
     <div className={isCourseArea ? "app-frame" : "site-frame"}>
       <header className="topbar">
-        <Link className="brand" to="/" aria-label="KDP MASTERKURS Startseite">
+        <Link className="brand" to="/" aria-label="KREA MIX Startseite">
           <span className="brand-mark">KM</span>
-          <span>KDP MASTERKURS</span>
+          <span>KREA MIX</span>
         </Link>
         <nav aria-label="Hauptnavigation">
           <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} to="/kurs">
             Kurs
           </NavLink>
           <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} to="/module">
-            Inhalte
+            Module
           </NavLink>
           <a className="nav-link" href="/#faq">
-            FAQ
+            Ressourcen
           </a>
         </nav>
         <div className="top-actions">
