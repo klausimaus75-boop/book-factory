@@ -2,6 +2,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { courseModules, getCourseModule } from "./courseData";
 
 const mentorUrl = "https://chatgpt.com/g/g-6a50e9b9bf48819199f884f9875cf2a5-kreamix-mentor";
+const studioUrl = "https://chatgpt.com/g/g-6a1ab7f3ec288191a40e489f296489d4-kreamix-buch-studio";
 
 export function CourseModulePage() {
   const { moduleSlug } = useParams();
@@ -59,6 +60,11 @@ export function CourseModulePage() {
             {module.slug === "nische" ? (
               <a className="button mentor" href={mentorUrl} target="_blank" rel="noreferrer">
                 Mentor
+              </a>
+            ) : null}
+            {module.slug === "buchkonzept" ? (
+              <a className="button mentor" href={studioUrl} target="_blank" rel="noreferrer">
+                Studio
               </a>
             ) : null}
             <button className="button primary" type="button">
