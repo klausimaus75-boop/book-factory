@@ -1,6 +1,8 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import { courseModules, getCourseModule } from "./courseData";
 
+const mentorUrl = "https://chatgpt.com/g/g-6a50e9b9bf48819199f884f9875cf2a5-kreamix-mentor";
+
 export function CourseModulePage() {
   const { moduleSlug } = useParams();
   const module = getCourseModule(moduleSlug);
@@ -54,6 +56,11 @@ export function CourseModulePage() {
             <Link className="button secondary" to="/">
               Zur Übersicht
             </Link>
+            {module.slug === "nische" ? (
+              <a className="button mentor" href={mentorUrl} target="_blank" rel="noreferrer">
+                Mentor
+              </a>
+            ) : null}
             <button className="button primary" type="button">
               Als nächstes starten
             </button>

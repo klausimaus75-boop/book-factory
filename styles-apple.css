@@ -806,6 +806,17 @@ nav {
   background: rgba(255, 122, 112, 0.13);
 }
 
+.button.mentor {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(241, 138, 215, 0.28), rgba(167, 139, 250, 0.2));
+  box-shadow: 0 16px 34px rgba(241, 138, 215, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.button.mentor:hover {
+  border-color: rgba(241, 138, 215, 0.44);
+  box-shadow: 0 20px 42px rgba(241, 138, 215, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
 .text-button {
   padding: 8px 10px;
   border-radius: 11px;
