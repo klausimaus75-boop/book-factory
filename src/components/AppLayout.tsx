@@ -1,49 +1,61 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import type { PropsWithChildren } from "react";
-import { courseModules } from "../modules/course/courseData";
+
+const appLinks = [
+  ["/dashboard", "Dashboard"],
+  ["/projekt", "Mein Buchprojekt"],
+  ["/module", "Module"],
+  ["/vorlagen", "Vorlagen"],
+  ["/checklisten", "Checklisten"],
+  ["/fortschritt", "Fortschritt"]
+] as const;
 
 export function AppLayout({ children }: PropsWithChildren) {
   const location = useLocation();
-  const activeModule = courseModules.find((module) => location.pathname === `/module/${module.slug}`);
+  const isCourseArea = !["/", "/kurs", "/login", "/registrieren", "/checkout"].includes(location.pathname);
 
   return (
-    <div className="app-shell">
+    <div className={isCourseArea ? "app-frame" : "site-frame"}>
       <header className="topbar">
-        <Link className="brand" to="/" aria-label="Zur KREA MIX Startseite">
+        <Link className="brand" to="/" aria-label="KDP MASTERKURS Startseite">
           <span className="brand-mark">KM</span>
-          <span>KREA MIX</span>
+          <span>KDP MASTERKURS</span>
         </Link>
         <nav aria-label="Hauptnavigation">
-          <Link className={location.pathname === "/" ? "nav-link active" : "nav-link"} to="/">
+          <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} to="/kurs">
             Kurs
-          </Link>
-          <Link className={location.pathname.startsWith("/module") ? "nav-link active" : "nav-link"} to="/module/nische">
-            Module
-          </Link>
-          <a className="nav-link" href="#ressourcen">
-            Ressourcen
+          </NavLink>
+          <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} to="/module">
+            Inhalte
+          </NavLink>
+          <a className="nav-link" href="/#faq">
+            FAQ
           </a>
         </nav>
-        <div className="account-menu" aria-label="Aktives Modul">
-          <span className="account-initial">KM</span>
-          <span>{activeModule ? activeModule.shortTitle : "KDP Kurs"}</span>
+        <div className="top-actions">
+          <Link className="text-button" to="/login">
+            Anmelden
+          </Link>
+          <Link className="button primary compact" to="/dashboard">
+            Kurs starten
+          </Link>
         </div>
       </header>
 
-      <div className="module-strip" aria-label="Modulauswahl">
-        {courseModules.map((module) => (
-          <Link
-            className={location.pathname === `/module/${module.slug}` ? "module-tab active" : "module-tab"}
-            key={module.slug}
-            to={`/module/${module.slug}`}
-          >
-            <span>{module.number}</span>
-            {module.shortTitle}
-          </Link>
-        ))}
-      </div>
-
-      <main className="page">{children}</main>
+      {isCourseArea ? (
+        <div className="app-body">
+          <aside className="side-nav" aria-label="Kursbereiche">
+            {appLinks.map(([href, label]) => (
+              <NavLink className={({ isActive }) => (isActive ? "side-link active" : "side-link")} key={href} to={href}>
+                {label}
+              </NavLink>
+            ))}
+          </aside>
+          <main className="page app-page">{children}</main>
+        </div>
+      ) : (
+        <main className="page">{children}</main>
+      )}
     </div>
   );
 }
