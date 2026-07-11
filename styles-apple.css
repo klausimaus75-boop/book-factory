@@ -306,18 +306,27 @@ p, li { color: var(--muted); line-height: 1.65; }
 .lesson-tasks { align-self: start; position: sticky; top: 96px; }
 .lesson-main { display: grid; gap: 22px; }
 .lesson-nav h2 {
-  font-size: 24px;
-  line-height: 1.25;
-  overflow-wrap: break-word;
+  display: grid;
+  gap: 4px;
+  font-size: 22px;
+  line-height: 1.22;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  hyphens: auto;
+}
+.lesson-nav h2 span:first-child {
+  font-size: 20px;
 }
 .lesson-nav .side-link {
   white-space: normal;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 .lesson-main h1 {
   max-width: 100%;
-  font-size: clamp(30px, 2.6vw, 40px);
+  font-size: clamp(28px, 2.2vw, 36px);
   line-height: 1.18;
+  overflow-wrap: anywhere;
 }
 .lesson-main h2 { font-size: clamp(24px, 2.3vw, 32px); }
 .video-box {
@@ -397,7 +406,7 @@ details {
 }
 summary { cursor: pointer; font-weight: 900; }
 
-@media (max-width: 1020px) {
+@media (max-width: 1200px) {
   .topbar,
   .app-body,
   .hero-section,

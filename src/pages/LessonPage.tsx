@@ -35,7 +35,7 @@ export function LessonPage() {
   return (
     <section className="lesson-layout">
       <aside className="lesson-nav panel">
-        <h2>{module.moduleNumber} · {module.title}</h2>
+        <h2><span>{module.moduleNumber}</span><span>{module.title}</span></h2>
         {module.lessons.map((item) => (
           <Link className={item.id === lesson.id ? "side-link active" : "side-link"} key={item.id} to={`/lesson/${item.id}`}>
             {item.lessonNumber} {item.title}
