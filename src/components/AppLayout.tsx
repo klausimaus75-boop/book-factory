@@ -1,36 +1,48 @@
 import { Link, useLocation } from "react-router-dom";
 import type { PropsWithChildren } from "react";
-import { useAuth } from "../modules/auth/useAuth";
+import { courseModules } from "../modules/course/courseData";
 
 export function AppLayout({ children }: PropsWithChildren) {
   const location = useLocation();
-  const { user, signOut } = useAuth();
+  const activeModule = courseModules.find((module) => location.pathname === `/module/${module.slug}`);
 
   return (
     <div className="app-shell">
       <header className="topbar">
-        <Link className="brand" to="/" aria-label="Zur Projektübersicht">
-          <span className="brand-mark">BF</span>
-          <span>Book Factory</span>
+        <Link className="brand" to="/" aria-label="Zur KREA MIX Startseite">
+          <span className="brand-mark">KM</span>
+          <span>KREA MIX</span>
         </Link>
         <nav aria-label="Hauptnavigation">
           <Link className={location.pathname === "/" ? "nav-link active" : "nav-link"} to="/">
-            Projekte
+            Kurs
           </Link>
-          <Link className={location.pathname === "/settings" ? "nav-link active" : "nav-link"} to="/settings">
-            Einstellungen
+          <Link className={location.pathname.startsWith("/module") ? "nav-link active" : "nav-link"} to="/module/nische">
+            Module
           </Link>
+          <a className="nav-link" href="#ressourcen">
+            Ressourcen
+          </a>
         </nav>
-        {user ? (
-          <div className="account-menu">
-            {user.picture ? <img src={user.picture} alt="" /> : <span className="account-initial">{user.name.slice(0, 1)}</span>}
-            <span>{user.name}</span>
-            <button className="text-button" type="button" onClick={signOut}>
-              Abmelden
-            </button>
-          </div>
-        ) : null}
+        <div className="account-menu" aria-label="Aktives Modul">
+          <span className="account-initial">KM</span>
+          <span>{activeModule ? activeModule.shortTitle : "KDP Kurs"}</span>
+        </div>
       </header>
+
+      <div className="module-strip" aria-label="Modulauswahl">
+        {courseModules.map((module) => (
+          <Link
+            className={location.pathname === `/module/${module.slug}` ? "module-tab active" : "module-tab"}
+            key={module.slug}
+            to={`/module/${module.slug}`}
+          >
+            <span>{module.number}</span>
+            {module.shortTitle}
+          </Link>
+        ))}
+      </div>
+
       <main className="page">{children}</main>
     </div>
   );
