@@ -53,7 +53,7 @@ export function DashboardPage() {
         </section>
       </div>
 
-      <section className="journey-rail dashboard-journey" aria-label="Deine sechs Module">
+      <section className="journey-rail dashboard-journey" aria-label="Deine 18 Module">
         {courseModules.map((module) => {
           const moduleProgress = getModuleProgress(module.id, progress);
           const active = module.id === currentModule.id;

@@ -571,7 +571,7 @@ p, li { color: var(--muted); line-height: 1.65; }
 .journey-rail {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
   gap: 16px;
   align-items: start;
 }
@@ -627,6 +627,56 @@ p, li { color: var(--muted); line-height: 1.65; }
 
 .landing-journey {
   padding: 0 40px 22px;
+}
+
+.phase-rail {
+  display: grid;
+  width: min(1440px, calc(100% - 48px));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 auto;
+}
+
+.phase-node {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 190px;
+  border: 1px solid rgba(127, 45, 82, 0.14);
+  border-radius: 20px;
+  padding: 18px;
+  color: #684f51;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(255, 246, 240, 0.52)),
+    rgba(255, 255, 255, 0.42);
+  box-shadow: 0 16px 42px rgba(95, 58, 43, 0.12);
+}
+
+.phase-node span,
+.phase-card span,
+.phase-heading span {
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: var(--welcome-berry);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(127, 45, 82, 0.12);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.phase-node strong {
+  color: #3b202b;
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.phase-node small {
+  color: #6c5357;
+  font-size: 14px;
+  line-height: 1.45;
 }
 
 .hero-copy h1 {
@@ -962,8 +1012,99 @@ p, li { color: var(--muted); line-height: 1.65; }
 
 .module-roadmap {
   display: grid;
-  gap: 14px;
+  gap: 18px;
   position: relative;
+}
+
+.course-overview-page,
+.phase-stack {
+  display: grid;
+  gap: 24px;
+}
+
+.course-overview-page .lead,
+.course-overview-page .phase-card p,
+.course-overview-page .phase-heading p,
+.course-overview-page .roadmap-item small,
+.course-overview-page .roadmap-item em {
+  color: #6c5357;
+}
+
+.course-overview-page h1,
+.course-overview-page .phase-card h2,
+.course-overview-page .phase-heading h2,
+.course-overview-page .roadmap-item strong {
+  color: #3b202b;
+}
+
+.course-overview-page .phase-card,
+.course-overview-page .roadmap-phase,
+.course-overview-page .roadmap-item {
+  border-color: rgba(127, 45, 82, 0.14);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.76), rgba(255, 246, 240, 0.58)),
+    rgba(255, 255, 255, 0.46);
+  box-shadow: 0 18px 48px rgba(95, 58, 43, 0.12);
+}
+
+.phase-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.phase-card {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-height: 170px;
+}
+
+.phase-card h2,
+.phase-heading h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(24px, 2.2vw, 34px);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.phase-card p,
+.phase-heading p {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.phase-section {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.28fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.phase-heading {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.phase-heading.compact {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.phase-heading.compact h2 {
+  font-size: 26px;
+}
+
+.roadmap-phase {
+  padding: 22px;
+}
+
+.roadmap-list {
+  display: grid;
+  gap: 12px;
 }
 
 .module-journey-page {
@@ -972,13 +1113,14 @@ p, li { color: var(--muted); line-height: 1.65; }
 
 .module-path {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  min-height: 430px;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  overflow: hidden;
-  background: rgba(7, 13, 26, 0.66);
-  backdrop-filter: blur(22px);
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  gap: 16px;
+  min-height: auto;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  backdrop-filter: none;
 }
 
 .module-stage {
@@ -987,20 +1129,19 @@ p, li { color: var(--muted); line-height: 1.65; }
   align-content: start;
   gap: 16px;
   min-width: 0;
-  border-right: 1px solid rgba(210, 222, 255, 0.16);
-  padding: 34px 22px 26px;
+  min-height: 320px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px 20px 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035)),
+    rgba(7, 13, 26, 0.42);
 }
 
-.module-stage:last-child { border-right: 0; }
+.module-stage:last-child { border-right: 1px solid var(--line); }
 
 .module-stage::before {
-  position: absolute;
-  top: 58px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.18);
-  content: "";
+  display: none;
 }
 
 .stage-number {
@@ -1035,7 +1176,7 @@ p, li { color: var(--muted); line-height: 1.65; }
 }
 
 .module-stage p {
-  min-height: 86px;
+  min-height: 0;
 }
 
 .module-stage em {
@@ -1056,7 +1197,7 @@ p, li { color: var(--muted); line-height: 1.65; }
 
 .roadmap-item {
   display: grid;
-  grid-template-columns: 56px minmax(0, 1fr) auto;
+  grid-template-columns: 56px minmax(180px, 0.36fr) minmax(0, 1fr) auto;
   align-items: center;
   gap: 16px;
   padding: 18px;
@@ -1129,6 +1270,10 @@ p, li { color: var(--muted); line-height: 1.65; }
 }
 .lesson-nav,
 .lesson-tasks { align-self: start; position: sticky; top: 118px; }
+.lesson-nav {
+  max-height: calc(100vh - 140px);
+  overflow: auto;
+}
 .lesson-main { display: grid; gap: 22px; }
 .lesson-nav h2 {
   display: grid;
@@ -1298,6 +1443,11 @@ summary { cursor: pointer; font-weight: 900; }
   .journey-rail {
     grid-template-columns: 1fr;
   }
+  .phase-rail,
+  .phase-overview-grid,
+  .phase-section {
+    grid-template-columns: 1fr;
+  }
   .journey-rail::before,
   .module-stage::before {
     display: none;
@@ -1312,6 +1462,10 @@ summary { cursor: pointer; font-weight: 900; }
     border: 1px solid var(--line);
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.05);
+  }
+  .lesson-nav {
+    max-height: none;
+    overflow: visible;
   }
   .top-actions,
   .brand,
@@ -1369,6 +1523,8 @@ summary { cursor: pointer; font-weight: 900; }
   .welcome-copy,
   .welcome-emphasis,
   .metric-grid,
+  .phase-rail,
+  .phase-overview-grid,
   .form-grid,
   .resource-grid,
   .checklist-grid,

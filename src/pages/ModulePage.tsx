@@ -25,9 +25,13 @@ export function ModulePage() {
         <strong className="progress-badge">{getModuleProgress(module.id, progress)}%</strong>
       </div>
 
-      <section className="panel next-step-panel">
-        <h2>Ergebnis dieses Moduls</h2>
+      <section className="panel next-step-panel module-outcome-panel">
+        <div>
+          <span className="eyebrow">{module.lessons.length} Lektionen</span>
+          <h2>Ergebnis dieses Moduls</h2>
+        </div>
         <p>{moduleOutcomes[module.id]}</p>
+        <p>{module.learningGoal}</p>
         <Link className="button primary" to={`/lesson/${firstOpenLesson.id}`}>
           {progress.completedLessons.includes(firstOpenLesson.id) ? "Lektion öffnen" : "Weiterarbeiten"}
         </Link>

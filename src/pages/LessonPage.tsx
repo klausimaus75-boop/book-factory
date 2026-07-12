@@ -62,7 +62,7 @@ export function LessonPage() {
 
         <div className="lesson-actions">
           <Link className="button secondary" to={`/module/${module.id}`}>Zurück</Link>
-          {nextLesson ? <Link className="button primary" to={`/lesson/${nextLesson.id}`}>Weiter →</Link> : <Link className="button primary" to="/fortschritt">Zum Fortschritt</Link>}
+          {nextLesson ? <Link className="button primary" to={`/lesson/${nextLesson.id}`}>Weiter <span aria-hidden="true">→</span></Link> : <Link className="button primary" to="/fortschritt">Zum Fortschritt</Link>}
         </div>
       </article>
 

@@ -4,7 +4,7 @@ export function TemplatesPage() {
   return (
     <section className="section-block">
       <h1>Vorlagenbibliothek</h1>
-      <p className="lead">Strukturierte Ressourcen für Planung, Analyse, Upload und Vermarktung.</p>
+      <p className="lead">Strukturierte Ressourcen für Planung, Buchbau, Upload, Marketing und dein wiederholbares KDP-System.</p>
       <div className="resource-grid">
         {resourceTemplates.map((template) => (
           <article className="panel" key={template.id}>

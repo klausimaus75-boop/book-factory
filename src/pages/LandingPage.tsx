@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { courseModules } from "../data/courseData";
+import { courseModules, coursePhases } from "../data/courseData";
 
 export function LandingPage() {
   const firstLesson = courseModules[0].lessons[0];
@@ -24,12 +24,12 @@ export function LandingPage() {
         </div>
 
         <div className="hero-side-note" aria-hidden="true">
+          <span>18</span>
+          <strong>Module aus deinem Leitfaden</strong>
+          <span>06</span>
+          <strong>klare Kursphasen</strong>
           <span>01</span>
-          <strong>Buchidee sortieren</strong>
-          <span>02</span>
-          <strong>KDP-Plan aufbauen</strong>
-          <span>03</span>
-          <strong>Veröffentlichen</strong>
+          <strong>echtes Buchprojekt</strong>
         </div>
       </div>
 
@@ -37,32 +37,26 @@ export function LandingPage() {
         <div className="welcome-copy-heading">
           <span>Startpunkt</span>
           <h2>Willkommen in deinem KDP-Kurs</h2>
-          <p>Ein klarer Einstieg für dein eigenes Buchprojekt, ohne Fachchinesisch und ohne dich mit zu vielen Baustellen gleichzeitig zu überfordern.</p>
+          <p>Dieser Kurs ist als Arbeitsstrecke gebaut: Du schaust nicht nur zu, sondern baust dein eigenes Buchprojekt Schritt für Schritt auf.</p>
         </div>
 
         <div className="welcome-copy">
-          <p>Du hast eine Buchidee. Vielleicht sogar mehrere. Aber wie wird daraus ein fertiges Buch, das professionell auf Amazon veröffentlicht und anschließend auch sichtbar gemacht wird?</p>
-          <p>Genau dabei begleitet dich dieser Kurs.</p>
-          <p>Du lernst den kompletten Weg von Anfang an kennen: von der Entwicklung und Prüfung deiner Buchidee über die Planung und Erstellung des Buches bis hin zu Cover, Buchsatz, Keywords und der Veröffentlichung über Amazon KDP.</p>
-          <p>Doch mit dem Klick auf „Veröffentlichen“ ist dein Weg nicht beendet.</p>
-          <p>Du erfährst auch, wie du dein Buch professionell präsentierst, einen sinnvollen Launch vorbereitest, Amazon-Werbung verstehst und deine Ergebnisse Schritt für Schritt auswertest und verbesserst.</p>
-          <p>Dieser Kurs ist kein theoretisches Nachschlagewerk, das du einmal liest und danach wieder vergisst.</p>
-          <p>Du arbeitest direkt an deinem eigenen Buchprojekt.</p>
-          <p>Jedes Modul führt dich durch einen konkreten Abschnitt deines Weges. Du bekommst verständliche Erklärungen, praktische Anleitungen, Beispiele, Checklisten und Aufgaben, die du direkt umsetzen kannst.</p>
-          <p>Du musst nicht schon wissen, wie Selfpublishing funktioniert.</p>
-          <p>Du musst auch kein Designer, Marketingexperte oder Technikprofi sein.</p>
-          <p>Du brauchst nur eine Sache: die Bereitschaft, dein Buch Schritt für Schritt wirklich umzusetzen.</p>
-          <p>Am Ende dieses Kurses sollst du nicht einfach nur mehr über Amazon KDP wissen.</p>
-          <p>Du sollst dein eigenes Buch geplant, erstellt, veröffentlicht und die Grundlagen dafür gelegt haben, es erfolgreich zu vermarkten.</p>
-          <p className="welcome-emphasis"><strong>Deine Buchidee ist der Anfang.</strong><strong>Jetzt machen wir ein echtes Buch daraus.</strong></p>
+          <p>Du beginnst mit Orientierung, Begriffen und einem ruhigen Umgang mit ChatGPT und den KreaMix-Bots.</p>
+          <p>Danach findest du deine Buchidee, prüfst Nische, Zielgruppe und Machbarkeit und formst daraus einen klaren Buchplan.</p>
+          <p>Im mittleren Teil baust du Inhalte, Innenseiten, Cover und Fullcover, bevor du alles mit einem Qualitätscheck absicherst.</p>
+          <p>Anschließend geht es kontrolliert zu Amazon KDP: Konto, Buchdaten, Upload, Vorschau, Pflichten, Belege und Ordnung.</p>
+          <p>Nach der Veröffentlichung bleibt dein Buch nicht einfach liegen. Du bereitest Beschreibung, Mockups, A+ Content, Marketing, Hooks und sinnvolle Empfehlungen vor.</p>
+          <p>Am Ende sicherst du Prompts, Checklisten und Vorlagen, damit aus einem einzelnen Buchprojekt ein wiederholbarer Ablauf für dein nächstes Buch wird.</p>
+          <p className="welcome-emphasis"><strong>Deine Buchidee ist der Anfang.</strong><strong>Der Kurs macht daraus ein konkretes KDP-Projekt.</strong></p>
         </div>
       </section>
 
-      <section className="journey-rail landing-journey" aria-label="KREA MIX Kursreise">
-        {courseModules.map((module) => (
-          <Link className="journey-node" key={module.id} to={`/module/${module.id}`}>
-            <span>{module.moduleNumber}</span>
-            <strong>{module.title}</strong>
+      <section className="phase-rail landing-journey" aria-label="KREA MIX Kursphasen">
+        {coursePhases.map((phase) => (
+          <Link className="phase-node" key={phase.title} to="/module">
+            <span>Module {phase.modules}</span>
+            <strong>{phase.title}</strong>
+            <small>{phase.description}</small>
           </Link>
         ))}
       </section>
