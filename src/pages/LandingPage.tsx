@@ -6,10 +6,11 @@ export function LandingPage() {
 
   return (
     <section className="landing guided-landing">
-      <div className="concept-hero">
+      <div className="concept-hero welcome-hero">
         <div className="hero-copy">
-          <h1>Von keiner Buchidee zum veröffentlichten KDP-Buch</h1>
-          <p>Dein klarer 6-Schritte-Plan. Von der ersten Idee bis zu deinem veröffentlichten Buch auf Amazon: einfach, strukturiert, machbar.</p>
+          <span className="welcome-kicker">Willkommen bei KREA MIX</span>
+          <h1>Dein ruhiger Start ins eigene <strong>KDP-Buch</strong></h1>
+          <p>Wir verwandeln vage Ideen in einen klaren, machbaren Buchplan. Schritt für Schritt, verständlich und ohne Überforderung.</p>
           <div className="actions">
             <Link className="button primary" to={`/lesson/${firstLesson.id}`}>
               Geführte Reise starten
@@ -19,7 +20,7 @@ export function LandingPage() {
               Ablauf ansehen
             </Link>
           </div>
-          <small>Für Anfänger gemacht. Schritt für Schritt.</small>
+          <small>Für Anfänger gemacht. Klar, feminin und fokussiert.</small>
         </div>
       </div>
 

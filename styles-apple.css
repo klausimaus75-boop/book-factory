@@ -14,6 +14,10 @@
   --accent-2: #b364ff;
   --accent-3: #75e8ff;
   --accent-pink: #f2a0ff;
+  --welcome-cream: #f5dfc8;
+  --welcome-rose: #d56f93;
+  --welcome-berry: #7f2d52;
+  --welcome-sage: #7e9478;
   --success: #8bffcf;
   --warning: #ffd17a;
   --radius: 20px;
@@ -81,10 +85,10 @@ button, input, select, textarea { font: inherit; }
   width: min(1420px, calc(100% - 48px));
   margin: 24px auto 0;
   padding: 16px 24px;
-  border: 1px solid rgba(204, 216, 255, 0.46);
+  border: 1px solid rgba(255, 225, 216, 0.44);
   border-radius: 24px;
-  background: linear-gradient(120deg, rgba(24, 29, 45, 0.78), rgba(8, 13, 25, 0.66));
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04) inset, var(--shadow);
+  background: linear-gradient(120deg, rgba(39, 26, 37, 0.76), rgba(13, 17, 27, 0.68));
+  box-shadow: 0 0 0 1px rgba(255, 240, 232, 0.05) inset, var(--shadow);
   backdrop-filter: blur(24px) saturate(130%);
 }
 
@@ -108,11 +112,11 @@ nav,
   width: 54px;
   height: 54px;
   place-items: center;
-  border: 1px solid rgba(221, 211, 255, 0.34);
+  border: 1px solid rgba(255, 226, 220, 0.38);
   border-radius: 12px;
   color: #fff;
-  background: linear-gradient(145deg, rgba(150, 119, 255, 0.88), rgba(67, 84, 156, 0.48));
-  box-shadow: 0 0 32px rgba(146, 97, 255, 0.34);
+  background: linear-gradient(145deg, rgba(213, 111, 147, 0.95), rgba(127, 45, 82, 0.7));
+  box-shadow: 0 0 32px rgba(213, 111, 147, 0.32);
   font-weight: 950;
 }
 
@@ -144,8 +148,8 @@ nav {
 .nav-link.active,
 .side-link.active {
   color: #fff;
-  background: linear-gradient(135deg, rgba(125, 168, 255, 0.16), rgba(179, 100, 255, 0.16));
-  box-shadow: 0 0 28px rgba(91, 132, 255, 0.13) inset;
+  background: linear-gradient(135deg, rgba(213, 111, 147, 0.18), rgba(126, 148, 120, 0.16));
+  box-shadow: 0 0 28px rgba(213, 111, 147, 0.13) inset;
 }
 
 .top-actions { justify-content: flex-end; }
@@ -167,17 +171,17 @@ nav {
 
 .button.compact { min-height: 42px; padding: 9px 17px; }
 .button.primary {
-  border-color: rgba(202, 211, 255, 0.35);
+  border-color: rgba(255, 228, 224, 0.4);
   color: #fff;
-  background: linear-gradient(135deg, #2e78ff 0%, #8f42e8 92%);
-  box-shadow: 0 0 28px rgba(86, 131, 255, 0.42), 0 16px 35px rgba(0, 0, 0, 0.34);
+  background: linear-gradient(135deg, #d56f93 0%, #7f2d52 96%);
+  box-shadow: 0 0 28px rgba(213, 111, 147, 0.35), 0 16px 35px rgba(0, 0, 0, 0.28);
 }
 .button.primary:hover { filter: brightness(1.08); }
 .button.primary:disabled { cursor: not-allowed; opacity: 0.48; filter: grayscale(0.2); }
 .button.secondary {
-  border-color: var(--line);
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(127, 45, 82, 0.18);
+  color: #4b2836;
+  background: rgba(255, 246, 240, 0.58);
 }
 
 .page {
@@ -255,6 +259,81 @@ p, li { color: var(--muted); line-height: 1.65; }
     linear-gradient(180deg, rgba(14, 30, 58, 0.48), rgba(4, 8, 18, 0.18)),
     linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
   overflow: hidden;
+}
+
+.welcome-hero {
+  min-height: 560px;
+  align-items: center;
+  justify-items: start;
+  border: 1px solid rgba(255, 232, 220, 0.58);
+  background:
+    linear-gradient(90deg, rgba(255, 246, 238, 0.96) 0%, rgba(255, 246, 238, 0.78) 38%, rgba(255, 246, 238, 0.24) 66%, rgba(255, 246, 238, 0.06) 100%),
+    url("/src/assets/krea-mix-welcome-bg.png") center / cover no-repeat;
+  box-shadow: 0 30px 90px rgba(76, 42, 32, 0.18);
+}
+
+.welcome-hero .hero-copy {
+  width: min(620px, 100%);
+  justify-items: start;
+  padding: clamp(22px, 4vw, 46px);
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 28px;
+  text-align: left;
+  background: rgba(255, 250, 246, 0.68);
+  box-shadow: 0 24px 70px rgba(95, 58, 43, 0.16);
+  backdrop-filter: blur(16px) saturate(120%);
+}
+
+.welcome-kicker {
+  color: var(--welcome-berry);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.welcome-hero .hero-copy h1 {
+  max-width: 570px;
+  margin: 14px 0 18px;
+  color: #321d24;
+  background: none;
+  font-size: clamp(42px, 5vw, 68px);
+  line-height: 0.98;
+  text-shadow: none;
+}
+
+.welcome-hero .hero-copy p {
+  max-width: 520px;
+  color: #634c50;
+  font-size: 21px;
+}
+
+.welcome-hero .hero-copy small {
+  color: #8a5a63;
+  font-weight: 800;
+}
+
+.welcome-hero .button.secondary {
+  color: var(--welcome-berry);
+}
+
+.welcome-hero .hero-copy h1 {
+  color: #3b202b;
+  background: none;
+  text-shadow: none;
+}
+
+.welcome-hero .hero-copy h1::first-line {
+  color: #3b202b;
+}
+
+.concept-hero.welcome-hero .hero-copy h1::first-line {
+  color: #3b202b;
+}
+
+.welcome-hero .hero-copy h1 strong,
+.welcome-hero .hero-copy h1 em {
+  color: var(--welcome-berry);
 }
 
 .concept-hero .hero-copy {
@@ -355,6 +434,16 @@ p, li { color: var(--muted); line-height: 1.65; }
   font-size: clamp(76px, 8.4vw, 116px);
   font-weight: 950;
   text-shadow: 0 0 38px rgba(130, 128, 255, 0.16);
+}
+
+.welcome-hero .hero-copy h1 {
+  color: #3b202b;
+  background: none;
+  text-shadow: none;
+}
+
+.welcome-hero .hero-copy h1 strong {
+  color: var(--welcome-berry);
 }
 
 .hero-copy p {
