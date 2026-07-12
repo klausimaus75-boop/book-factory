@@ -317,6 +317,40 @@ p, li { color: var(--muted); line-height: 1.65; }
   color: var(--welcome-berry);
 }
 
+.welcome-copy-panel {
+  display: grid;
+  gap: 22px;
+  width: min(980px, calc(100% - 48px));
+  margin: 0 auto;
+  border-color: rgba(255, 225, 216, 0.28);
+  background:
+    linear-gradient(135deg, rgba(255, 246, 240, 0.12), rgba(255, 255, 255, 0.035)),
+    rgba(18, 13, 22, 0.72);
+}
+
+.welcome-copy-panel h2 {
+  margin-bottom: 0;
+  color: #fff6f1;
+}
+
+.welcome-copy {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 34px;
+}
+
+.welcome-copy p {
+  margin-bottom: 14px;
+  color: #dbc9c5;
+  font-size: 17px;
+  line-height: 1.72;
+}
+
+.welcome-copy strong {
+  color: #fff6f1;
+  font-size: 19px;
+}
+
 .welcome-hero .hero-copy h1 {
   color: #3b202b;
   background: none;
@@ -1116,6 +1150,7 @@ summary { cursor: pointer; font-weight: 900; }
   .split-section { padding-left: 0; padding-right: 0; }
   .page-title-row { display: grid; }
   .overview-grid,
+  .welcome-copy,
   .metric-grid,
   .form-grid,
   .resource-grid,

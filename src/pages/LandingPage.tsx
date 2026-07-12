@@ -24,6 +24,27 @@ export function LandingPage() {
         </div>
       </div>
 
+      <section className="welcome-copy-panel panel">
+        <h2>Willkommen in deinem KDP-Kurs</h2>
+        <div className="welcome-copy">
+          <p>Du hast eine Buchidee. Vielleicht sogar mehrere. Aber wie wird daraus ein fertiges Buch, das professionell auf Amazon veröffentlicht und anschließend auch sichtbar gemacht wird?</p>
+          <p>Genau dabei begleitet dich dieser Kurs.</p>
+          <p>Du lernst den kompletten Weg von Anfang an kennen: von der Entwicklung und Prüfung deiner Buchidee über die Planung und Erstellung des Buches bis hin zu Cover, Buchsatz, Keywords und der Veröffentlichung über Amazon KDP.</p>
+          <p>Doch mit dem Klick auf „Veröffentlichen“ ist dein Weg nicht beendet.</p>
+          <p>Du erfährst auch, wie du dein Buch professionell präsentierst, einen sinnvollen Launch vorbereitest, Amazon-Werbung verstehst und deine Ergebnisse Schritt für Schritt auswertest und verbesserst.</p>
+          <p>Dieser Kurs ist kein theoretisches Nachschlagewerk, das du einmal liest und danach wieder vergisst.</p>
+          <p>Du arbeitest direkt an deinem eigenen Buchprojekt.</p>
+          <p>Jedes Modul führt dich durch einen konkreten Abschnitt deines Weges. Du bekommst verständliche Erklärungen, praktische Anleitungen, Beispiele, Checklisten und Aufgaben, die du direkt umsetzen kannst.</p>
+          <p>Du musst nicht schon wissen, wie Selfpublishing funktioniert.</p>
+          <p>Du musst auch kein Designer, Marketingexperte oder Technikprofi sein.</p>
+          <p>Du brauchst nur eine Sache: die Bereitschaft, dein Buch Schritt für Schritt wirklich umzusetzen.</p>
+          <p>Am Ende dieses Kurses sollst du nicht einfach nur mehr über Amazon KDP wissen.</p>
+          <p>Du sollst dein eigenes Buch geplant, erstellt, veröffentlicht und die Grundlagen dafür gelegt haben, es erfolgreich zu vermarkten.</p>
+          <p><strong>Deine Buchidee ist der Anfang.</strong></p>
+          <p><strong>Jetzt machen wir ein echtes Buch daraus.</strong></p>
+        </div>
+      </section>
+
       <section className="journey-rail landing-journey" aria-label="KREA MIX Kursreise">
         {courseModules.map((module) => (
           <Link className="journey-node" key={module.id} to={`/module/${module.id}`}>
