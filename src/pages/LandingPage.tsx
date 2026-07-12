@@ -8,7 +8,7 @@ export function LandingPage() {
     <section className="landing guided-landing">
       <div className="concept-hero welcome-hero">
         <div className="hero-copy">
-          <span className="welcome-kicker">Willkommen bei KREA MIX</span>
+          <span className="welcome-kicker">Willkommen bei KreaMix</span>
           <h1>Dein ruhiger Start ins eigene <strong>KDP-Buch</strong></h1>
           <p>Wir verwandeln vage Ideen in einen klaren, machbaren Buchplan. Schritt für Schritt, verständlich und ohne Überforderung.</p>
           <div className="actions">
@@ -23,13 +23,18 @@ export function LandingPage() {
           <small>Für Anfänger gemacht. Klar, feminin und fokussiert.</small>
         </div>
 
-        <div className="hero-side-note" aria-hidden="true">
-          <span>18</span>
-          <strong>Module aus deinem Leitfaden</strong>
-          <span>06</span>
-          <strong>klare Kursphasen</strong>
-          <span>01</span>
-          <strong>echtes Buchprojekt</strong>
+        <div className="brand-showcase" aria-hidden="true">
+          <div className="course-box">
+            <span className="box-emblem">K</span>
+            <strong>KreaMix</strong>
+            <small>The step-by-step system to create, launch & sell your KDP book</small>
+            <i>Online Course</i>
+          </div>
+          <div className="workbook-card">
+            <span className="box-emblem">K</span>
+            <strong>KreaMix</strong>
+            <small>Course Creation Workbook</small>
+          </div>
         </div>
       </div>
 
@@ -51,7 +56,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      <section className="phase-rail landing-journey" aria-label="KREA MIX Kursphasen">
+      <section className="phase-rail landing-journey" aria-label="KreaMix Kursphasen">
         {coursePhases.map((phase) => (
           <Link className="phase-node" key={phase.title} to="/module">
             <span>Module {phase.modules}</span>
