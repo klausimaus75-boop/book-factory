@@ -44,6 +44,89 @@ body {
   overflow-x: hidden;
 }
 
+.site-frame {
+  color: #3b202b;
+  background:
+    linear-gradient(180deg, rgba(255, 246, 240, 0.72), rgba(255, 246, 240, 0.9) 42%, rgba(246, 224, 209, 0.92)),
+    url("/src/assets/krea-mix-welcome-bg.png") top center / 100% auto repeat-y;
+}
+
+.site-frame::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 250, 246, 0.78) 0%, rgba(255, 250, 246, 0.42) 44%, rgba(255, 250, 246, 0.08) 100%),
+    radial-gradient(circle at 16% 18%, rgba(213, 111, 147, 0.16), transparent 26%);
+  content: "";
+}
+
+.site-frame > * {
+  position: relative;
+  z-index: 1;
+}
+
+.site-frame .topbar {
+  border-color: rgba(127, 45, 82, 0.16);
+  background: rgba(255, 250, 246, 0.72);
+  box-shadow: 0 20px 70px rgba(95, 58, 43, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.45) inset;
+}
+
+.site-frame .brand,
+.site-frame .nav-link,
+.site-frame .text-button {
+  color: #4b2836;
+}
+
+.site-frame .nav-link.active {
+  color: var(--welcome-berry);
+  background: rgba(213, 111, 147, 0.12);
+}
+
+.site-frame .panel,
+.site-frame .roadmap-item,
+.site-frame .dashboard-preview,
+.site-frame .metric-grid article {
+  border-color: rgba(127, 45, 82, 0.14);
+  background:
+    linear-gradient(135deg, rgba(255, 250, 246, 0.78), rgba(255, 246, 240, 0.54)),
+    rgba(255, 255, 255, 0.52);
+  box-shadow: 0 22px 70px rgba(95, 58, 43, 0.14), 0 0 0 1px rgba(255, 255, 255, 0.35) inset;
+}
+
+.site-frame h2,
+.site-frame h3,
+.site-frame .journey-node strong {
+  color: #3b202b;
+}
+
+.site-frame p,
+.site-frame li {
+  color: #684f51;
+}
+
+.site-frame .journey-node {
+  color: #684f51;
+}
+
+.site-frame .journey-node span {
+  border-color: rgba(127, 45, 82, 0.22);
+  color: var(--welcome-berry);
+  background: rgba(255, 250, 246, 0.76);
+  box-shadow: 0 12px 34px rgba(95, 58, 43, 0.12);
+}
+
+.site-frame .journey-rail::before {
+  background: linear-gradient(90deg, var(--welcome-sage), var(--welcome-rose), var(--welcome-berry));
+}
+
+.site-frame .check-orb {
+  border-color: rgba(127, 45, 82, 0.28);
+  color: var(--welcome-berry);
+  background: rgba(255, 250, 246, 0.7);
+}
+
 body::before,
 body::after {
   position: fixed;
@@ -265,11 +348,11 @@ p, li { color: var(--muted); line-height: 1.65; }
   min-height: 560px;
   align-items: center;
   justify-items: start;
-  border: 1px solid rgba(255, 232, 220, 0.58);
+  border: 0;
+  border-radius: 0;
   background:
-    linear-gradient(90deg, rgba(255, 246, 238, 0.96) 0%, rgba(255, 246, 238, 0.78) 38%, rgba(255, 246, 238, 0.24) 66%, rgba(255, 246, 238, 0.06) 100%),
-    url("/src/assets/krea-mix-welcome-bg.png") center / cover no-repeat;
-  box-shadow: 0 30px 90px rgba(76, 42, 32, 0.18);
+    linear-gradient(90deg, rgba(255, 246, 238, 0.46) 0%, rgba(255, 246, 238, 0.22) 42%, rgba(255, 246, 238, 0.02) 100%);
+  box-shadow: none;
 }
 
 .welcome-hero .hero-copy {
@@ -279,7 +362,7 @@ p, li { color: var(--muted); line-height: 1.65; }
   border: 1px solid rgba(255, 255, 255, 0.58);
   border-radius: 28px;
   text-align: left;
-  background: rgba(255, 250, 246, 0.68);
+  background: rgba(255, 250, 246, 0.48);
   box-shadow: 0 24px 70px rgba(95, 58, 43, 0.16);
   backdrop-filter: blur(16px) saturate(120%);
 }
@@ -322,15 +405,16 @@ p, li { color: var(--muted); line-height: 1.65; }
   gap: 22px;
   width: min(980px, calc(100% - 48px));
   margin: 0 auto;
-  border-color: rgba(255, 225, 216, 0.28);
+  border-color: rgba(127, 45, 82, 0.14);
   background:
-    linear-gradient(135deg, rgba(255, 246, 240, 0.12), rgba(255, 255, 255, 0.035)),
-    rgba(18, 13, 22, 0.72);
+    linear-gradient(135deg, rgba(255, 250, 246, 0.86), rgba(255, 246, 240, 0.68)),
+    rgba(255, 255, 255, 0.54);
+  box-shadow: 0 22px 70px rgba(95, 58, 43, 0.16);
 }
 
 .welcome-copy-panel h2 {
   margin-bottom: 0;
-  color: #fff6f1;
+  color: #3b202b;
 }
 
 .welcome-copy {
@@ -341,13 +425,13 @@ p, li { color: var(--muted); line-height: 1.65; }
 
 .welcome-copy p {
   margin-bottom: 14px;
-  color: #dbc9c5;
+  color: #684f51;
   font-size: 17px;
   line-height: 1.72;
 }
 
 .welcome-copy strong {
-  color: #fff6f1;
+  color: var(--welcome-berry);
   font-size: 19px;
 }
 
