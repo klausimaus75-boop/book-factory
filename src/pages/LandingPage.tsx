@@ -22,10 +22,24 @@ export function LandingPage() {
           </div>
           <small>Für Anfänger gemacht. Klar, feminin und fokussiert.</small>
         </div>
+
+        <div className="hero-side-note" aria-hidden="true">
+          <span>01</span>
+          <strong>Buchidee sortieren</strong>
+          <span>02</span>
+          <strong>KDP-Plan aufbauen</strong>
+          <span>03</span>
+          <strong>Veröffentlichen</strong>
+        </div>
       </div>
 
       <section className="welcome-copy-panel panel">
-        <h2>Willkommen in deinem KDP-Kurs</h2>
+        <div className="welcome-copy-heading">
+          <span>Startpunkt</span>
+          <h2>Willkommen in deinem KDP-Kurs</h2>
+          <p>Ein klarer Einstieg für dein eigenes Buchprojekt, ohne Fachchinesisch und ohne dich mit zu vielen Baustellen gleichzeitig zu überfordern.</p>
+        </div>
+
         <div className="welcome-copy">
           <p>Du hast eine Buchidee. Vielleicht sogar mehrere. Aber wie wird daraus ein fertiges Buch, das professionell auf Amazon veröffentlicht und anschließend auch sichtbar gemacht wird?</p>
           <p>Genau dabei begleitet dich dieser Kurs.</p>
@@ -40,8 +54,7 @@ export function LandingPage() {
           <p>Du brauchst nur eine Sache: die Bereitschaft, dein Buch Schritt für Schritt wirklich umzusetzen.</p>
           <p>Am Ende dieses Kurses sollst du nicht einfach nur mehr über Amazon KDP wissen.</p>
           <p>Du sollst dein eigenes Buch geplant, erstellt, veröffentlicht und die Grundlagen dafür gelegt haben, es erfolgreich zu vermarkten.</p>
-          <p><strong>Deine Buchidee ist der Anfang.</strong></p>
-          <p><strong>Jetzt machen wir ein echtes Buch daraus.</strong></p>
+          <p className="welcome-emphasis"><strong>Deine Buchidee ist der Anfang.</strong><strong>Jetzt machen wir ein echtes Buch daraus.</strong></p>
         </div>
       </section>
 
