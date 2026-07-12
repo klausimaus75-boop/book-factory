@@ -1,5 +1,5 @@
 import { Link, Navigate, useParams } from "react-router-dom";
-import { courseModules } from "../data/courseData";
+import { courseModules, moduleOutcomes } from "../data/courseData";
 import { getModuleProgress } from "../lib/progress";
 import { useCourseProgress } from "../hooks/useCourseState";
 
@@ -12,8 +12,10 @@ export function ModulePage() {
     return <Navigate to="/module" replace />;
   }
 
+  const firstOpenLesson = module.lessons.find((lesson) => !progress.completedLessons.includes(lesson.id)) ?? module.lessons[0];
+
   return (
-    <section className="module-detail">
+    <section className="module-detail guided-module">
       <div className="page-title-row">
         <div>
           <span className="eyebrow">Modul {module.moduleNumber}</span>
@@ -22,19 +24,27 @@ export function ModulePage() {
         </div>
         <strong className="progress-badge">{getModuleProgress(module.id, progress)}%</strong>
       </div>
-      <section className="panel">
-        <h2>Lernziel</h2>
-        <p>{module.learningGoal}</p>
+
+      <section className="panel next-step-panel">
+        <h2>Ergebnis dieses Moduls</h2>
+        <p>{moduleOutcomes[module.id]}</p>
+        <Link className="button primary" to={`/lesson/${firstOpenLesson.id}`}>
+          {progress.completedLessons.includes(firstOpenLesson.id) ? "Lektion öffnen" : "Weiterarbeiten"}
+        </Link>
       </section>
+
       <div className="lesson-stack">
-        {module.lessons.map((lesson) => (
-          <Link className="lesson-row" key={lesson.id} to={`/lesson/${lesson.id}`}>
-            <span>{lesson.lessonNumber}</span>
-            <strong>{lesson.title}</strong>
-            <small>{lesson.estimatedDuration}</small>
-            <em>{progress.completedLessons.includes(lesson.id) ? "Abgeschlossen" : "Öffnen"}</em>
-          </Link>
-        ))}
+        {module.lessons.map((lesson, index) => {
+          const done = progress.completedLessons.includes(lesson.id);
+          return (
+            <Link className={done ? "lesson-row done" : "lesson-row"} key={lesson.id} to={`/lesson/${lesson.id}`}>
+              <span>{index + 1}</span>
+              <strong>{lesson.title}</strong>
+              <small>{lesson.estimatedDuration}</small>
+              <em>{done ? "Abgeschlossen" : "Öffnen"}</em>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

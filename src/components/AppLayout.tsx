@@ -1,15 +1,6 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import type { PropsWithChildren } from "react";
 
-const appLinks = [
-  ["/dashboard", "Dashboard"],
-  ["/projekt", "Mein Buchprojekt"],
-  ["/module", "Module"],
-  ["/vorlagen", "Vorlagen"],
-  ["/checklisten", "Checklisten"],
-  ["/fortschritt", "Fortschritt"]
-] as const;
-
 export function AppLayout({ children }: PropsWithChildren) {
   const location = useLocation();
   const isCourseArea = !["/", "/kurs", "/login", "/registrieren", "/checkout"].includes(location.pathname);
@@ -28,9 +19,9 @@ export function AppLayout({ children }: PropsWithChildren) {
           <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} to="/module">
             Module
           </NavLink>
-          <a className="nav-link" href="/#faq">
+          <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} to="/vorlagen">
             Ressourcen
-          </a>
+          </NavLink>
         </nav>
         <div className="top-actions">
           <Link className="text-button" to="/login">
@@ -44,13 +35,6 @@ export function AppLayout({ children }: PropsWithChildren) {
 
       {isCourseArea ? (
         <div className="app-body">
-          <aside className="side-nav" aria-label="Kursbereiche">
-            {appLinks.map(([href, label]) => (
-              <NavLink className={({ isActive }) => (isActive ? "side-link active" : "side-link")} key={href} to={href}>
-                {label}
-              </NavLink>
-            ))}
-          </aside>
           <main className="page app-page">{children}</main>
         </div>
       ) : (

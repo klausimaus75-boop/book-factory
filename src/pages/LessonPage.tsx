@@ -14,10 +14,8 @@ export function LessonPage() {
 
   const activeLesson = lesson;
   const module = courseModules.find((item) => item.id === activeLesson.moduleId)!;
-  const moduleLessons = module.lessons;
-  const currentIndex = moduleLessons.findIndex((item) => item.id === activeLesson.id);
   const lessonIndex = allLessons.findIndex((item) => item.id === activeLesson.id);
-  const nextLesson = moduleLessons[currentIndex + 1] ?? allLessons[lessonIndex + 1];
+  const nextLesson = allLessons[lessonIndex + 1];
   const taskIds = getLessonTasks(activeLesson.id);
   const completeAllowed = canCompleteLesson(activeLesson.id, progress);
 
@@ -33,49 +31,45 @@ export function LessonPage() {
   }
 
   return (
-    <section className="lesson-layout">
+    <section className="lesson-layout guided-lesson">
       <aside className="lesson-nav panel">
-        <h2><span>{module.moduleNumber}</span><span>{module.title}</span></h2>
-        {module.lessons.map((item) => (
-          <Link className={item.id === lesson.id ? "side-link active" : "side-link"} key={item.id} to={`/lesson/${item.id}`}>
-            {item.lessonNumber} {item.title}
-          </Link>
-        ))}
+        <h2>Deine Reise</h2>
+        {courseModules.map((item) => {
+          const active = item.id === module.id;
+          return (
+            <Link className={active ? "side-link active" : "side-link"} key={item.id} to={`/module/${item.id}`}>
+              <span>{item.moduleNumber}</span>
+              {item.title}
+            </Link>
+          );
+        })}
       </aside>
 
       <article className="lesson-main panel">
-        <span className="eyebrow">{lesson.lessonNumber} · {lesson.estimatedDuration}</span>
-        <h1>{lesson.title}</h1>
-        <h2>Lernziel</h2>
-        <p>{lesson.learningGoal}</p>
-        <div className="video-box">Videobereich · {lesson.video.title} · {lesson.video.duration}</div>
-        {lesson.contentSections.map((section) => (
-          <section key={section.heading}>
-            <h2>{section.heading}</h2>
-            <p>{section.body}</p>
-          </section>
-        ))}
-        <section>
-          <h2>Schritt-für-Schritt-Anleitung</h2>
-          <ol>{lesson.steps.map((step) => <li key={step}>{step}</li>)}</ol>
+        <span className="eyebrow">Modul {module.moduleNumber} · Lektion {activeLesson.lessonNumber.split(".")[1]} von {module.lessons.length}</span>
+        <h1>{activeLesson.title}</h1>
+        <p>{activeLesson.learningGoal}</p>
+
+        <section className="lesson-goal-box">
+          <h2>Lernziel</h2>
+          <p>{activeLesson.learningGoal}</p>
         </section>
+
         <section>
-          <h2>Praxisbeispiele</h2>
-          <ul>{lesson.examples.map((example) => <li key={example}>{example}</li>)}</ul>
+          <h2>Schritt für Schritt</h2>
+          <ol className="step-list">{activeLesson.steps.map((step) => <li key={step}>{step}</li>)}</ol>
         </section>
-        <section>
-          <h2>Downloads</h2>
-          <div className="download-list">{lesson.downloads.map((download) => <span key={download.title}>{download.title}</span>)}</div>
-        </section>
-        <section>
-          <h2>Quiz</h2>
-          {lesson.quiz.map((question) => <p key={question.question}><strong>{question.question}</strong><br />Richtige Antwort: {question.answer}</p>)}
-        </section>
+
+        <div className="lesson-actions">
+          <Link className="button secondary" to={`/module/${module.id}`}>Zurück</Link>
+          {nextLesson ? <Link className="button primary" to={`/lesson/${nextLesson.id}`}>Weiter →</Link> : <Link className="button primary" to="/fortschritt">Zum Fortschritt</Link>}
+        </div>
       </article>
 
       <aside className="lesson-tasks panel">
-        <h2>Aufgaben</h2>
-        {lesson.tasks.map((task, index) => {
+        <h2>Deine Aufgabe</h2>
+        <p>{activeLesson.completionRequirement}</p>
+        {activeLesson.tasks.map((task, index) => {
           const taskId = taskIds[index];
           return (
             <label className="check-row" key={taskId}>
@@ -84,11 +78,9 @@ export function LessonPage() {
             </label>
           );
         })}
-        <p className="muted">{lesson.completionRequirement}</p>
         <button className="button primary" disabled={!completeAllowed} onClick={completeLesson} type="button">
-          Lektion abschließen
+          Aufgabe erledigt
         </button>
-        {nextLesson ? <Link className="button secondary" to={`/lesson/${nextLesson.id}`}>Nächste Lektion</Link> : <Link className="button secondary" to="/fortschritt">Zum Fortschritt</Link>}
       </aside>
     </section>
   );
